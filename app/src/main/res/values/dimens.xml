@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="splash_icon_size">240dp</dimen>
+    <dimen name="space_small">8dp</dimen>
+    <dimen name="space_normal">16dp</dimen>
+    <dimen name="space_large">24dp</dimen>
+    <dimen name="space_xlarge">32dp</dimen>
+    <dimen name="item_progress_size">32dp</dimen>
+    <dimen name="item_poster_height">150dp</dimen>
+    <dimen name="item_poster_width">100dp</dimen>
+    <dimen name="text_size_item_title">18sp</dimen>
+    <dimen name="text_size_detail_title">24sp</dimen>
+    <dimen name="text_size_item_field">12sp</dimen>
+    <dimen name="text_size_detail_field">14sp</dimen>
+</resources>

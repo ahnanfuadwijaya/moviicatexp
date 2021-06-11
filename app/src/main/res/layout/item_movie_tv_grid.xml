@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="@dimen/space_small">
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/space_normal">
+
+        <ImageView
+            android:id="@+id/iv_poster"
+            style="@style/RVItemPoster"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:src="@tools:sample/avatars"
+            android:contentDescription="@string/desc_poster" />
+
+        <TextView
+            android:id="@+id/tv_title"
+            style="@style/RVItemTitle"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/iv_poster"
+            tools:text="This is Title" />
+
+        <TextView
+            android:id="@+id/tv_date"
+            style="@style/RVItemField"
+            android:layout_marginTop="8dp"
+            app:layout_constraintStart_toStartOf="@+id/tv_title"
+            app:layout_constraintTop_toBottomOf="@+id/tv_title"
+            tools:text="2021-01-15" />
+
+        <ImageView
+            android:id="@+id/iv_score"
+            style="@style/RVItemIvScore"
+            android:layout_marginBottom="8dp"
+            android:src="@drawable/ic_score"
+            app:layout_constraintBottom_toTopOf="@+id/tv_title"
+            app:layout_constraintStart_toStartOf="@+id/tv_title"
+            tools:ignore="ContentDescription" />
+        <TextView
+            android:id="@+id/tv_score"
+            style="@style/RVItemScore"
+            app:layout_constraintBottom_toBottomOf="@+id/iv_score"
+            app:layout_constraintEnd_toEndOf="@+id/iv_score"
+            app:layout_constraintStart_toStartOf="@+id/iv_score"
+            app:layout_constraintTop_toTopOf="@+id/iv_score"
+            tools:text="8.5" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</com.google.android.material.card.MaterialCardView>

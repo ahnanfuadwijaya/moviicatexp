@@ -1,7 +1,8 @@
 <resources>
     <string name="app_name">MoviiCatExp</string>
     <string name="title_favorite">Favorite</string>
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="desc_poster">Poster</string>
+    <string name="title_tv">TV</string>
+    <string name="title_movie">Movie</string>
 </resources>

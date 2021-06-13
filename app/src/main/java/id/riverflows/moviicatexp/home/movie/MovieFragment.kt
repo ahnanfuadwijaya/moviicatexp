@@ -5,10 +5,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
+import dagger.hilt.android.AndroidEntryPoint
 import id.riverflows.moviicatexp.databinding.FragmentHomeBinding
+import id.riverflows.moviicatexp.home.HomeSharedViewModel
 
+@AndroidEntryPoint
 class MovieFragment : Fragment() {
     private var _binding: FragmentHomeBinding? = null
+    private val viewModel: HomeSharedViewModel by viewModels()
     private val binding
         get() = _binding
 

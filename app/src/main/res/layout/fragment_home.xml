@@ -7,7 +7,7 @@
     tools:context=".home.HomeActivity">
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_list_grid"
+        android:id="@+id/rv_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginStart="@dimen/space_normal"

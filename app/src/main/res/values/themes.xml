@@ -14,50 +14,7 @@
     <style name="SplashStyle">
         <item name="android:background">@color/light_grey_200</item>
     </style>
-    <style name="RVItemPoster">
-        <item name="android:layout_height">@dimen/item_poster_height</item>
-        <item name="android:layout_width">@dimen/item_poster_width</item>
-    </style>
 
-    <style name="RVItemTitle">
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_marginTop">@dimen/space_small</item>
-        <item name="android:lines">1</item>
-        <item name="android:maxLines">1</item>
-        <item name="android:ellipsize">end</item>
-        <item name="android:textSize">@dimen/text_size_item_title</item>
-        <item name="android:textColor">@color/black</item>
-    </style>
-    <style name="RVItemTitle.List">
-        <item name="android:layout_width">0dp</item>
-    </style>
-
-    <style name="RVItemScore">
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_width">wrap_content</item>
-        <item name="android:layout_gravity">center</item>
-        <item name="android:lines">1</item>
-        <item name="android:textSize">@dimen/text_size_item_field</item>
-        <item name="android:textColor">@color/black</item>
-    </style>
-
-    <style name="RVItemIvScore">
-        <item name="android:layout_width">@dimen/item_progress_size</item>
-        <item name="android:layout_height">@dimen/item_progress_size</item>
-    </style>
-
-    <style name="RVItemField">
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_width">match_parent</item>
-        <item name="android:lines">1</item>
-        <item name="android:maxLines">1</item>
-        <item name="android:ellipsize">end</item>
-        <item name="android:textSize">@dimen/text_size_item_field</item>
-    </style>
-    <style name="RVItemField.List">
-        <item name="android:layout_width">0dp</item>
-    </style>
     <style name="BottomNavStyle">
         <item name="itemTextColor">@color/bottom_nav_tint</item>
         <item name="itemIconTint">@color/bottom_nav_tint</item>
@@ -72,5 +29,79 @@
         <item name="android:background">@color/light_grey_200</item>
         <item name="tabTextColor">@color/black</item>
         <item name="tabIndicatorColor">@color/black</item>
+    </style>
+
+    <style name="FabStyle">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginBottom">@dimen/space_xlarge</item>
+        <item name="android:layout_marginEnd">@dimen/space_xlarge</item>
+        <item name="android:foregroundGravity">bottom</item>
+        <item name="elevation">@dimen/fab_elevation</item>
+        <item name="fabSize">normal</item>
+        <item name="layout_anchorGravity">bottom|end</item>
+        <item name="tint">@color/dark_red</item>
+        <item name="backgroundTint">@color/white</item>
+    </style>
+
+    <style name="DetailPoster">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:minHeight">@dimen/detail_poster_min_height</item>
+    </style>
+    <style name="DetailPoster.Shimmer">
+        <item name="android:background">@color/dark_grey_200</item>
+    </style>
+    <style name="DetailOverviewField">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+    <style name="DetailOverviewField.Shimmer">
+        <item name="android:layout_height">@dimen/shimmer_detail_field_height</item>
+        <item name="android:background">@color/dark_grey_200</item>
+    </style>
+    <style name="DetailOverviewValue">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">@dimen/text_size_detail_field</item>
+    </style>
+    <style name="DetailOverviewValue.Shimmer">
+        <item name="android:background">@color/dark_grey_200</item>
+        <item name="android:layout_height">@dimen/shimmer_detail_field_height</item>
+    </style>
+    <style name="DetailTitle">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_marginTop">@dimen/space_normal</item>
+        <item name="android:lines">1</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:textSize">@dimen/text_size_detail_title</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
+    <style name="DetailTitle.Shimmer">
+        <item name="android:background">@color/dark_grey_200</item>
+    </style>
+    <style name="DetailField">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:lines">1</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:textSize">@dimen/text_size_detail_field</item>
+    </style>
+    <style name="DetailField.Shimmer">
+        <item name="android:layout_width">@dimen/shimmer_detail_field_width</item>
+        <item name="android:background">@color/dark_grey_200</item>
+    </style>
+    <style name="DetailSeparator">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:textSize">@dimen/text_size_detail_field</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
+    <style name="DetailSeparator.Shimmer">
+        <item name="android:layout_width">@dimen/space_small</item>
+        <item name="android:background">@color/dark_grey_200</item>
     </style>
 </resources>

@@ -1,39 +1,35 @@
 package id.riverflows.core.data.source.local
 
-import id.riverflows.core.data.source.local.entity.Favorite.FavoriteEntity
-import id.riverflows.core.data.source.local.entity.MovieDetailEntity
-import id.riverflows.core.data.source.local.entity.TvDetailEntity
-import id.riverflows.core.data.source.local.room.FavoriteDao
-import id.riverflows.core.data.source.local.room.MovieDao
-import id.riverflows.core.data.source.local.room.TvDao
+import id.riverflows.core.data.source.local.entity.Entity.MovieTv
+import id.riverflows.core.data.source.local.room.MovieTvDao
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
 class LocalDataSource @Inject constructor(
-    private val movieDao: MovieDao,
-    private val tvDao: TvDao,
-    private val favoriteDao: FavoriteDao
+    private val movieTvDao: MovieTvDao
 ) {
 
-    fun getMovies(): Flow<List<MovieDetailEntity>> = movieDao.getMovies()
+    fun getMovies(): Flow<List<MovieTv>> = movieTvDao.getMovies()
 
-    fun getDetailMovie(id: Long): Flow<MovieDetailEntity> = movieDao.getDetailMovie(id)
+    fun getDetailMovie(id: Long): Flow<MovieTv> = movieTvDao.getDetailMovie(id)
 
-    fun getFavoriteMovies(): Flow<List<FavoriteEntity>> = favoriteDao.getFavoriteMovies()
+    fun getTvShows(): Flow<List<MovieTv>> = movieTvDao.getTvShows()
 
-    fun getFavoriteMovie(id: Long): Flow<FavoriteEntity> = favoriteDao.getFavoriteMovie(id)
+    fun getDetailTv(id: Long): Flow<MovieTv> = movieTvDao.getDetailTv(id)
 
-    suspend fun insertMovies(list: List<MovieDetailEntity>) = movieDao.insertMovies(list)
+    suspend fun insertList(list: List<MovieTv>) = movieTvDao.insertList(list)
 
-    suspend fun insertMovie(data: MovieDetailEntity) = movieDao.insertMovie(data)
+    suspend fun insertData(data: MovieTv) = movieTvDao.insertData(data)
 
-    fun getTvShows(): Flow<List<TvDetailEntity>> = tvDao.getTvShows()
+    suspend fun updateData(data: MovieTv) = movieTvDao.updateData(data)
 
-    fun getFavoriteTvShows(): Flow<List<FavoriteEntity>> = favoriteDao.getFavoriteTvShows()
+    fun getFavoriteMovies(): Flow<List<MovieTv>> = movieTvDao.getFavoriteMovies()
 
-    suspend fun insertTvShows(list: List<TvDetailEntity>) = tvDao.insertTvShows(list)
+    fun getFavoriteMovie(id: Long): Flow<MovieTv> = movieTvDao.getFavoriteMovie(id)
 
-    fun setFavorite(data: FavoriteEntity) = favoriteDao.updateFavorite(data)
+    fun getFavoriteTvShows(): Flow<List<MovieTv>> = movieTvDao.getFavoriteTvShows()
+
+    fun getFavoriteTv(id: Long): Flow<MovieTv> = movieTvDao.getFavoriteTv(id)
 }

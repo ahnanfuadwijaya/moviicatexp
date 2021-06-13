@@ -4,10 +4,10 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import dagger.hilt.android.AndroidEntryPoint
+import id.riverflows.core.utils.AppConfig.SPLASH_DURATION
 import id.riverflows.core.utils.AppExecutors
 import id.riverflows.moviicatexp.databinding.ActivitySplashBinding
 import id.riverflows.moviicatexp.home.HomeActivity
-import id.riverflows.moviicatexp.utils.UtilConfig.SPLASH_DURATION
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 

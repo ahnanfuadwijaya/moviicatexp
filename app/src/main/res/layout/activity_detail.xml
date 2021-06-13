@@ -1,9 +1,140 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".detail.DetailActivity">
+    android:fitsSystemWindows="true">
+    <ScrollView
+        android:id="@+id/scrollview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/space_normal"
+            tools:context=".ui.detail.movie.DetailMovieActivity">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+            <com.facebook.shimmer.ShimmerFrameLayout
+                android:id="@+id/shimmer_container"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:elevation="2dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <include
+                    layout="@layout/shimmer_detail"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+            </com.facebook.shimmer.ShimmerFrameLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/view_container"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:visibility="invisible"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <ImageView
+                    android:id="@+id/iv_poster"
+                    style="@style/DetailPoster"
+                    android:contentDescription="@string/desc_poster"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/tv_title"
+                    style="@style/DetailTitle"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/iv_poster"
+                    tools:text="This is Name" />
+
+                <TextView
+                    android:id="@+id/rating_separator"
+                    style="@style/DetailSeparator"
+                    android:layout_marginStart="8dp"
+                    android:text="@string/text_separator"
+                    app:layout_constraintBottom_toBottomOf="@+id/tv_rate"
+                    app:layout_constraintStart_toEndOf="@+id/tv_popularity"
+                    app:layout_constraintTop_toTopOf="@+id/tv_rate" />
+
+                <TextView
+                    android:id="@+id/tv_popularity"
+                    style="@style/DetailField"
+                    app:layout_constraintBottom_toBottomOf="@+id/tv_rate"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/tv_rate"
+                    tools:text="Popularity: 8378" />
+
+                <TextView
+                    android:id="@+id/tv_rate"
+                    style="@style/DetailField"
+                    android:layout_marginStart="@dimen/space_small"
+                    android:layout_marginTop="@dimen/space_small"
+                    android:gravity="center_vertical"
+                    app:drawableEndCompat="@drawable/ic_rate"
+                    app:layout_constraintStart_toEndOf="@+id/rating_separator"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_title"
+                    tools:text="8.5" />
+
+                <TextView
+                    android:id="@+id/tv_date"
+                    style="@style/DetailField"
+                    android:layout_marginTop="@dimen/space_normal"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_rate"
+                    tools:text="23 JSs 2837 - 23 Jsi 3242" />
+
+                <TextView
+                    android:id="@+id/date_separator"
+                    style="@style/DetailSeparator"
+                    android:layout_marginStart="@dimen/space_small"
+                    android:text="@string/text_separator"
+                    app:layout_constraintBottom_toBottomOf="@+id/tv_date"
+                    app:layout_constraintStart_toEndOf="@+id/tv_date"
+                    app:layout_constraintTop_toTopOf="@+id/tv_date" />
+
+                <TextView
+                    android:id="@+id/tv_status"
+                    style="@style/DetailField"
+                    android:layout_marginStart="@dimen/space_normal"
+                    app:layout_constraintStart_toEndOf="@+id/date_separator"
+                    app:layout_constraintTop_toTopOf="@+id/tv_date"
+                    tools:text="Released" />
+
+                <TextView
+                    android:id="@+id/field_overview"
+                    style="@style/DetailOverviewField"
+                    android:layout_marginTop="@dimen/space_small"
+                    android:text="@string/title_overview"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_status" />
+
+                <TextView
+                    android:id="@+id/tv_value_overview"
+                    style="@style/DetailOverviewValue"
+                    android:layout_marginTop="@dimen/space_small"
+                    android:layout_marginBottom="@dimen/space_normal"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/field_overview" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab_favorite"
+        style="@style/FabStyle"
+        app:srcCompat="@drawable/ic_favorite_border"
+        android:layout_gravity="bottom|end"
+        app:layout_behavior="@string/hide_bottom_view_on_scroll_behavior"
+        tools:ignore="ContentDescription" />
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

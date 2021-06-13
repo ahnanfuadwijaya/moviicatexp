@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="RVItemPoster">
+        <item name="android:layout_height">@dimen/item_poster_height</item>
+        <item name="android:layout_width">@dimen/item_poster_width</item>
+    </style>
+
+    <style name="RVItemTitle">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_marginTop">@dimen/space_small</item>
+        <item name="android:lines">1</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:textSize">@dimen/text_size_item_title</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
+    <style name="RVItemTitle.List">
+        <item name="android:layout_width">0dp</item>
+    </style>
+
+    <style name="RVItemScore">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:lines">1</item>
+        <item name="android:textSize">@dimen/text_size_item_field</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
+
+    <style name="RVItemIvScore">
+        <item name="android:layout_width">@dimen/item_progress_size</item>
+        <item name="android:layout_height">@dimen/item_progress_size</item>
+    </style>
+
+    <style name="RVItemField">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:lines">1</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:textSize">@dimen/text_size_item_field</item>
+    </style>
+    <style name="RVItemField.List">
+        <item name="android:layout_width">0dp</item>
+    </style>
+</resources>

@@ -7,10 +7,8 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
-import id.riverflows.core.data.source.local.room.FavoriteDao
-import id.riverflows.core.data.source.local.room.MovieDao
+import id.riverflows.core.data.source.local.room.MovieTvDao
 import id.riverflows.core.data.source.local.room.MoviiCatDatabase
-import id.riverflows.core.data.source.local.room.TvDao
 import javax.inject.Singleton
 
 @Module
@@ -25,11 +23,5 @@ class DatabaseModule {
     ).fallbackToDestructiveMigration().build()
 
     @Provides
-    fun provideMovieDao(database: MoviiCatDatabase): MovieDao = database.movieDao()
-
-    @Provides
-    fun provideTvDao(database: MoviiCatDatabase): TvDao = database.tvDao()
-
-    @Provides
-    fun provideFavoriteDao(database: MoviiCatDatabase): FavoriteDao = database.favoriteDao()
+    fun provideMovieDao(database: MoviiCatDatabase): MovieTvDao = database.movieTvDao()
 }

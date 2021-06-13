@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:padding="@dimen/space_normal"
+    tools:context=".detail.DetailActivity"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <ImageView
+        android:id="@+id/shimmer_iv_poster"
+        style="@style/DetailPoster.Shimmer"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:contentDescription="@string/desc_poster" />
+
+    <TextView
+        android:id="@+id/shimmer_tv_title"
+        style="@style/DetailTitle.Shimmer"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/shimmer_iv_poster" />
+
+    <TextView
+        android:id="@+id/shimmer_rating_separator"
+        style="@style/DetailSeparator.Shimmer"
+        android:layout_marginStart="@dimen/space_small"
+        app:layout_constraintBottom_toBottomOf="@+id/shimmer_tv_rate"
+        app:layout_constraintStart_toEndOf="@+id/shimmer_tv_popularity"
+        app:layout_constraintTop_toTopOf="@+id/shimmer_tv_rate" />
+
+    <TextView
+        android:id="@+id/shimmer_tv_popularity"
+        style="@style/DetailField.Shimmer"
+        app:layout_constraintBottom_toBottomOf="@+id/shimmer_tv_rate"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/shimmer_tv_rate" />
+
+    <TextView
+        android:id="@+id/shimmer_tv_rate"
+        style="@style/DetailField.Shimmer"
+        android:layout_marginStart="@dimen/space_small"
+        android:layout_marginTop="@dimen/space_small"
+        android:gravity="center_vertical"
+        app:layout_constraintStart_toEndOf="@+id/shimmer_rating_separator"
+        app:layout_constraintTop_toBottomOf="@+id/shimmer_tv_title" />
+
+    <TextView
+        android:id="@+id/shimmer_tv_release_date"
+        style="@style/DetailField.Shimmer"
+        android:layout_marginTop="@dimen/space_normal"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/shimmer_tv_rate" />
+
+    <TextView
+        android:id="@+id/shimmer_date_separator"
+        style="@style/DetailSeparator.Shimmer"
+        android:layout_marginStart="@dimen/space_small"
+        app:layout_constraintBottom_toBottomOf="@+id/shimmer_tv_release_date"
+        app:layout_constraintStart_toEndOf="@+id/shimmer_tv_release_date"
+        app:layout_constraintTop_toTopOf="@+id/shimmer_tv_release_date" />
+
+    <TextView
+        android:id="@+id/shimmer_tv_release_status"
+        style="@style/DetailField.Shimmer"
+        android:layout_marginStart="@dimen/space_small"
+        app:layout_constraintStart_toEndOf="@+id/shimmer_date_separator"
+        app:layout_constraintTop_toTopOf="@+id/shimmer_tv_release_date" />
+
+    <TextView
+        android:id="@+id/shimmer_field_overview"
+        style="@style/DetailOverviewField.Shimmer"
+        android:layout_marginTop="@dimen/space_small"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/shimmer_tv_release_date" />
+
+    <TextView
+        android:id="@+id/shimmer_tv_value_overview"
+        style="@style/DetailOverviewValue.Shimmer"
+        android:layout_marginTop="@dimen/space_small"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/shimmer_field_overview" />
+</androidx.constraintlayout.widget.ConstraintLayout>

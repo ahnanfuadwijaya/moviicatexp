@@ -26,4 +26,44 @@
         <item name="tabTextColor">@color/white</item>
         <item name="tabIndicatorColor">@color/white</item>
     </style>
+
+    <style name="DetailPoster">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:minHeight">@dimen/detail_poster_min_height</item>
+    </style>
+    <style name="DetailOverviewField">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+    <style name="DetailOverviewValue">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">@dimen/text_size_detail_field</item>
+    </style>
+    <style name="DetailTitle">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_marginTop">@dimen/space_normal</item>
+        <item name="android:lines">1</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:textSize">@dimen/text_size_detail_title</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
+    <style name="DetailField">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:lines">1</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:textSize">@dimen/text_size_detail_field</item>
+    </style>
+
+    <style name="DetailSeparator">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:textSize">@dimen/text_size_detail_field</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
 </resources>

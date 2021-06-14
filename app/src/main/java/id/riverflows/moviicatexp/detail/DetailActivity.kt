@@ -11,7 +11,6 @@ import id.riverflows.core.data.Resource
 import id.riverflows.core.domain.model.Content.Companion.TYPE_MOVIE
 import id.riverflows.core.domain.model.Content.Companion.TYPE_TV
 import id.riverflows.core.domain.model.Content.MovieTv
-import id.riverflows.core.utils.AppConfig.POSTER_URL
 import id.riverflows.core.utils.AppConfig.POSTER_URL_ORIGINAL
 import id.riverflows.core.utils.UtilConstants.EXTRA_MOVIE_TV_DATA
 import id.riverflows.moviicatexp.R
@@ -20,28 +19,66 @@ import timber.log.Timber
 
 @AndroidEntryPoint
 class DetailActivity : AppCompatActivity() {
+    private var dataType = 1
     private lateinit var binding: ActivityDetailBinding
     private val viewModel: DetailViewModel by viewModels()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityDetailBinding.inflate(layoutInflater)
-        setContentView(binding.root)
-        observeViewModel()
+        setupInitialView()
+        requestData()
     }
 
-    private fun observeViewModel(){
+    private fun setupInitialView(){
+        binding = ActivityDetailBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+        setFabClickable(false)
+        setFabState(true)
+    }
+
+    private fun requestData(){
         val data = intent.getParcelableExtra<MovieTv>(EXTRA_MOVIE_TV_DATA)
         if(data != null){
+            observeViewModel(data)
             if(data.type == TYPE_MOVIE){
-                viewModel.getDetailMovie(data.id).observe(this){
-                    processResponse(it)
-                }
+                binding.fabFavorite.setOnClickListener { viewModel.getFavoriteMovie(data.id) }
             }else{
-                viewModel.getDetailTv(data.id).observe(this){
-                    processResponse(it)
+                binding.fabFavorite.setOnClickListener { viewModel.getFavoriteTv(data.id) }
+            }
+        }
+    }
+
+    private fun observeViewModel(data: MovieTv){
+        if(data.type == TYPE_MOVIE){
+            viewModel.getDetailMovie(data.id).observe(this){
+                processResponse(it)
+            }
+            viewModel.getFavoriteMovie(data.id).observe(this){
+                if(it == null){
+                    //TODO is favorite false
+                }else{
+                    processFavoriteResult(it)
+                }
+            }
+        }else{
+            viewModel.getDetailTv(data.id).observe(this){
+                processResponse(it)
+            }
+            viewModel.getFavoriteTv(data.id).observe(this){
+                if(it == null){
+                    //TODO is favorite false
+                }else{
+                    processFavoriteResult(it)
                 }
             }
         }
+    }
+
+    private fun processFavoriteResult(data: MovieTv){
+        setFabState(true)
+    }
+
+    private fun setFabClickable(isClickable: Boolean){
+        binding.fabFavorite.isClickable = isClickable
     }
 
     private fun processResponse(response: Resource<MovieTv>){

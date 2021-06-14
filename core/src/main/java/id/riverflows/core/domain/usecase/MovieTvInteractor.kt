@@ -20,11 +20,11 @@ class MovieTvInteractor @Inject constructor(private val repository: IMovieTvRepo
 
     override fun getFavoriteMovies(): Flow<List<MovieTv>> = repository.getFavoriteMovies()
 
-    override fun getFavoriteMovie(id: Long): Flow<MovieTv> = repository.getFavoriteMovie(id)
+    override fun getFavoriteMovie(id: Long): Flow<MovieTv?> = repository.getFavoriteMovie(id)
 
     override fun getFavoriteTvShows(): Flow<List<MovieTv>> = repository.getFavoriteTvShows()
 
-    override fun getFavoriteTvShow(id: Long): Flow<MovieTv> = repository.getFavoriteTvShow(id)
+    override fun getFavoriteTvShow(id: Long): Flow<MovieTv?> = repository.getFavoriteTvShow(id)
 
     override suspend fun setFavorite(data: MovieTv) = repository.setFavorite(data)
 

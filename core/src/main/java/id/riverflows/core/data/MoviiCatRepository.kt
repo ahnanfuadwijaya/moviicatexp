@@ -105,9 +105,9 @@ class MoviiCatRepository @Inject constructor(
         }
     }
 
-    override fun getFavoriteMovie(id: Long): Flow<Content.MovieTv> {
-        return localDataSource.getFavoriteMovie(id).map {
-            DataMapper.mapEntityToDomain(it)
+    override fun getFavoriteMovie(id: Long): Flow<Content.MovieTv?> {
+        return(localDataSource.getFavoriteMovie(id)).map {
+            if(it == null) null else DataMapper.mapEntityToDomain(it)
         }
     }
 
@@ -117,9 +117,9 @@ class MoviiCatRepository @Inject constructor(
         }
     }
 
-    override fun getFavoriteTvShow(id: Long): Flow<Content.MovieTv> {
+    override fun getFavoriteTvShow(id: Long): Flow<Content.MovieTv?> {
         return localDataSource.getFavoriteTv(id).map {
-            DataMapper.mapEntityToDomain(it)
+            if(it == null) null else DataMapper.mapEntityToDomain(it)
         }
     }
 

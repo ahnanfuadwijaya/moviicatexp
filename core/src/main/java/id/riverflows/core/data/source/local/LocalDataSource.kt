@@ -27,9 +27,9 @@ class LocalDataSource @Inject constructor(
 
     fun getFavoriteMovies(): Flow<List<MovieTv>> = movieTvDao.getFavoriteMovies()
 
-    fun getFavoriteMovie(id: Long): Flow<MovieTv> = movieTvDao.getFavoriteMovie(id)
+    fun getFavoriteMovie(id: Long): Flow<MovieTv?> = movieTvDao.getFavoriteMovie(id)
 
     fun getFavoriteTvShows(): Flow<List<MovieTv>> = movieTvDao.getFavoriteTvShows()
 
-    fun getFavoriteTv(id: Long): Flow<MovieTv> = movieTvDao.getFavoriteTv(id)
+    fun getFavoriteTv(id: Long): Flow<MovieTv?> = movieTvDao.getFavoriteTv(id)
 }

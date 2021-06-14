@@ -1,9 +1,9 @@
 package id.riverflows.core.data.source.remote
 
-import android.util.Log
 import id.riverflows.core.data.source.remote.network.ApiResponse
 import id.riverflows.core.data.source.remote.network.ApiService
-import id.riverflows.core.data.source.remote.response.*
+import id.riverflows.core.data.source.remote.response.MovieResponse
+import id.riverflows.core.data.source.remote.response.TvResponse
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
@@ -15,7 +15,7 @@ import javax.inject.Singleton
 @Singleton
 class RemoteDataSource @Inject constructor(private val apiService: ApiService) {
 
-    suspend fun getAllMovies(): Flow<ApiResponse<List<MovieResponse.Item>>> {
+    suspend fun getMovies(): Flow<ApiResponse<List<MovieResponse.Item>>> {
         return flow {
             try {
                 val response = apiService.getMovies()
@@ -43,7 +43,7 @@ class RemoteDataSource @Inject constructor(private val apiService: ApiService) {
         }.flowOn(Dispatchers.IO)
     }
 
-    suspend fun getAllTvShows(): Flow<ApiResponse<List<TvResponse.Item>>> {
+    suspend fun getTvShows(): Flow<ApiResponse<List<TvResponse.Item>>> {
         return flow {
             try {
                 val response = apiService.getTvShows()

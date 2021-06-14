@@ -4,9 +4,9 @@ import id.riverflows.core.data.source.local.LocalDataSource
 import id.riverflows.core.data.source.remote.RemoteDataSource
 import id.riverflows.core.data.source.remote.network.ApiResponse
 import id.riverflows.core.data.source.remote.response.MovieResponse
+import id.riverflows.core.data.source.remote.response.TvResponse
 import id.riverflows.core.domain.model.Content
 import id.riverflows.core.domain.repository.IMovieTvRepository
-import id.riverflows.core.utils.AppExecutors
 import id.riverflows.core.utils.DataMapper
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
@@ -18,7 +18,6 @@ import javax.inject.Singleton
 class MoviiCatRepository @Inject constructor(
     private val localDataSource: LocalDataSource,
     private val remoteDataSource: RemoteDataSource,
-    private val appExecutors: AppExecutors
 ): IMovieTvRepository {
     override fun getMovies(): Flow<Resource<List<Content.MovieTv>>> =
         object : NetworkBoundResource<List<Content.MovieTv>, List<MovieResponse.Item>>(){
@@ -31,7 +30,7 @@ class MoviiCatRepository @Inject constructor(
             override fun shouldFetch(data: List<Content.MovieTv>?): Boolean = data.isNullOrEmpty()
 
             override suspend fun createCall(): Flow<ApiResponse<List<MovieResponse.Item>>> {
-                return remoteDataSource.getAllMovies()
+                return remoteDataSource.getMovies()
             }
 
             override suspend fun saveCallResult(data: List<MovieResponse.Item>) {
@@ -58,32 +57,79 @@ class MoviiCatRepository @Inject constructor(
             }
         }.asFlow()
 
+    override fun getTvShows(): Flow<Resource<List<Content.MovieTv>>> =
+        object : NetworkBoundResource<List<Content.MovieTv>, List<TvResponse.Item>>(){
+            override fun loadFromDB(): Flow<List<Content.MovieTv>> {
+                return localDataSource.getTvShows().map {
+                    DataMapper.mapEntitiesToDomains(it)
+                }
+            }
+
+            override fun shouldFetch(data: List<Content.MovieTv>?): Boolean = data.isNullOrEmpty()
+
+            override suspend fun createCall(): Flow<ApiResponse<List<TvResponse.Item>>> {
+                return remoteDataSource.getTvShows()
+            }
+
+            override suspend fun saveCallResult(data: List<TvResponse.Item>) {
+                localDataSource.insertList(DataMapper.mapTvShowsResponseToEntities(data))
+            }
+        }.asFlow()
+
+    override fun getDetailTv(id: Long): Flow<Resource<Content.MovieTv>> =
+        object : NetworkBoundResource<Content.MovieTv, TvResponse.Detail>(){
+            override fun loadFromDB(): Flow<Content.MovieTv> {
+                return localDataSource.getDetailTv(id).map {
+                    DataMapper.mapEntityToDomain(it)
+                }
+            }
+
+            override fun shouldFetch(data: Content.MovieTv?): Boolean = true
+
+            override suspend fun createCall(): Flow<ApiResponse<TvResponse.Detail>> {
+                return remoteDataSource.getDetailTv(id)
+            }
+
+            override suspend fun saveCallResult(data: TvResponse.Detail) {
+                localDataSource.insertData(DataMapper.mapTvDetailResponseToEntity(data))
+            }
+        }.asFlow()
+
+    override suspend fun updateData(data: Content.MovieTv) {
+        localDataSource.updateData(DataMapper.mapDomainToEntity(data))
+    }
+
     override fun getFavoriteMovies(): Flow<List<Content.MovieTv>> {
-        TODO("Not yet implemented")
+        return localDataSource.getFavoriteMovies().map {
+            DataMapper.mapEntitiesToDomains(it)
+        }
     }
 
     override fun getFavoriteMovie(id: Long): Flow<Content.MovieTv> {
-        TODO("Not yet implemented")
+        return localDataSource.getFavoriteMovie(id).map {
+            DataMapper.mapEntityToDomain(it)
+        }
     }
 
     override fun getFavoriteTvShows(): Flow<List<Content.MovieTv>> {
-        TODO("Not yet implemented")
+        return localDataSource.getFavoriteTvShows().map {
+            DataMapper.mapEntitiesToDomains(it)
+        }
     }
 
     override fun getFavoriteTvShow(id: Long): Flow<Content.MovieTv> {
-        TODO("Not yet implemented")
+        return localDataSource.getFavoriteTv(id).map {
+            DataMapper.mapEntityToDomain(it)
+        }
     }
 
-    override fun setFavorite(data: Content.MovieTv) {
-        TODO("Not yet implemented")
+    override suspend fun setFavorite(data: Content.MovieTv) {
+        data.isFavorite = true
+        localDataSource.updateData(DataMapper.mapDomainToEntity(data))
     }
 
-
-    override fun getTvShows(): Flow<Resource<List<Content.MovieTv>>> {
-        TODO("Not yet implemented")
-    }
-
-    override fun getDetailTv(id: Long): Flow<Resource<Content.MovieTv>> {
-        TODO("Not yet implemented")
+    override suspend fun removeFavorite(data: Content.MovieTv) {
+        data.isFavorite = false
+        localDataSource.updateData(DataMapper.mapDomainToEntity(data))
     }
 }

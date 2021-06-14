@@ -13,5 +13,5 @@ import id.riverflows.core.domain.usecase.MovieTvUseCase
 abstract class AppModule {
     @Binds
     @ViewModelScoped
-    abstract fun provideMovieUseCase(movieInteractor: MovieTvInteractor): MovieTvUseCase
+    abstract fun provideMovieUseCase(movieTvInteractor: MovieTvInteractor): MovieTvUseCase
 }

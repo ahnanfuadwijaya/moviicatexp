@@ -103,4 +103,20 @@ object DataMapper {
             Entity.TYPE_TV,
         )
     }
+
+    fun mapDomainToEntity(input: Content.MovieTv): Entity.MovieTv{
+        return Entity.MovieTv(
+            input.id,
+            input.title,
+            input.voteAverage,
+            input.releaseDate,
+            input.posterPath,
+            input.lastDate,
+            input.overview,
+            input.popularity,
+            input.status,
+            input.type,
+            input.isFavorite
+        )
+    }
 }

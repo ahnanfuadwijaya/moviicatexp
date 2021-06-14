@@ -23,9 +23,9 @@ import timber.log.Timber
 
 @AndroidEntryPoint
 class MovieFragment : Fragment(), GridRvAdapter.OnItemClickCallback {
-    private var _binding: FragmentHomeBinding? = null
     private val viewModel: HomeSharedViewModel by viewModels()
     private val rvAdapter = GridRvAdapter()
+    private var _binding: FragmentHomeBinding? = null
     private val binding
         get() = _binding
 

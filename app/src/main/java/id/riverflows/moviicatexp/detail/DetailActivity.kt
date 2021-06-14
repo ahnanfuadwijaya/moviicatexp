@@ -32,7 +32,6 @@ class DetailActivity : AppCompatActivity() {
     private fun observeViewModel(){
         val data = intent.getParcelableExtra<MovieTv>(EXTRA_MOVIE_TV_DATA)
         if(data != null){
-            setLoadingState(true)
             if(data.type == TYPE_MOVIE){
                 viewModel.getDetailMovie(data.id).observe(this){
                     processResponse(it)
@@ -48,32 +47,21 @@ class DetailActivity : AppCompatActivity() {
     private fun processResponse(response: Resource<MovieTv>){
         when(response){
             is Resource.Loading ->{
-
+                setLoadingState(true)
             }
             is Resource.Success -> {
                 setLoadingState(false)
                 response.data?.run {
+                    viewModel.updateData(this)
                     bindData(this)
                     Timber.d("Bind Data")
                 }
                 Timber.d(response.data.toString())
             }
             is Resource.Error -> {
-                //setLoadingState(false)
+                setLoadingState(false)
                 Timber.d(response.toString())
                 Timber.d(response.message)
-            }
-        }
-    }
-
-    private fun requestData(){
-        val data = intent.getParcelableExtra<MovieTv>(EXTRA_MOVIE_TV_DATA)
-        if(data != null){
-            setLoadingState(true)
-            if(data.type == TYPE_MOVIE){
-                viewModel.getDetailMovie(data.id)
-            }else{
-                viewModel.getDetailTv(data.id)
             }
         }
     }

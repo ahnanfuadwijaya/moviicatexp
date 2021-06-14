@@ -8,7 +8,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class HomeSharedViewModel @Inject constructor(
-    movieUseCase: MovieTvUseCase
+    movieTvUseCase: MovieTvUseCase
 ): ViewModel() {
-    val movies = movieUseCase.getMovies().asLiveData()
+    val movies = movieTvUseCase.getMovies().asLiveData()
+    val tvShows = movieTvUseCase.getTvShows().asLiveData()
 }

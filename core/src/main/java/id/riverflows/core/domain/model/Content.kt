@@ -16,7 +16,7 @@ class Content {
         val popularity: Float?,
         val status: String?,
         val type: Int = TYPE_MOVIE,
-        val isFavorite: Boolean = false
+        var isFavorite: Boolean = false
     ): Parcelable
 
     companion object{

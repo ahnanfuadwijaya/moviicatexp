@@ -32,7 +32,7 @@ class Entity {
         @ColumnInfo(name = "type")
         val type: Int = TYPE_MOVIE,
         @ColumnInfo(name = "is_favorite")
-        val isFavorite: Boolean = false
+        var isFavorite: Boolean = false
     )
 
     companion object{

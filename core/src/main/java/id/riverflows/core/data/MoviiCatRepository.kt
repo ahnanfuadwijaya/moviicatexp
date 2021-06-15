@@ -46,7 +46,10 @@ class MoviiCatRepository @Inject constructor(
                 }
             }
 
-            override fun shouldFetch(data: Content.MovieTv?): Boolean = true
+            override fun shouldFetch(data: Content.MovieTv?): Boolean{
+                if(data == null) return true
+                return validateIsDetail(data)
+            }
 
             override suspend fun createCall(): Flow<ApiResponse<MovieResponse.Detail>> {
                 return remoteDataSource.getDetailMovie(id)
@@ -84,7 +87,10 @@ class MoviiCatRepository @Inject constructor(
                 }
             }
 
-            override fun shouldFetch(data: Content.MovieTv?): Boolean = true
+            override fun shouldFetch(data: Content.MovieTv?): Boolean{
+                if(data == null) return true
+                return validateIsDetail(data)
+            }
 
             override suspend fun createCall(): Flow<ApiResponse<TvResponse.Detail>> {
                 return remoteDataSource.getDetailTv(id)
@@ -131,5 +137,9 @@ class MoviiCatRepository @Inject constructor(
     override suspend fun removeFavorite(data: Content.MovieTv) {
         data.isFavorite = false
         localDataSource.updateData(DataMapper.mapDomainToEntity(data))
+    }
+
+    private fun validateIsDetail(data: Content.MovieTv): Boolean{
+        return data.overview == null || data.popularity == null || data.status == null
     }
 }

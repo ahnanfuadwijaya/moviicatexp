@@ -19,9 +19,9 @@ import timber.log.Timber
 
 @AndroidEntryPoint
 class DetailActivity : AppCompatActivity() {
-    private var dataType = 1
     private lateinit var binding: ActivityDetailBinding
     private val viewModel: DetailViewModel by viewModels()
+    private var data: MovieTv? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setupInitialView()
@@ -33,18 +33,17 @@ class DetailActivity : AppCompatActivity() {
         setContentView(binding.root)
         setFabClickable(false)
         setFabState(true)
+        binding.fabFavorite.setOnClickListener {
+            data?.run {
+                this.isFavorite = !this.isFavorite
+                viewModel.updateData(this)
+            }
+        }
     }
 
     private fun requestData(){
-        val data = intent.getParcelableExtra<MovieTv>(EXTRA_MOVIE_TV_DATA)
-        if(data != null){
-            observeViewModel(data)
-            if(data.type == TYPE_MOVIE){
-                binding.fabFavorite.setOnClickListener { viewModel.getFavoriteMovie(data.id) }
-            }else{
-                binding.fabFavorite.setOnClickListener { viewModel.getFavoriteTv(data.id) }
-            }
-        }
+        data = intent.getParcelableExtra(EXTRA_MOVIE_TV_DATA)
+        data?.run { observeViewModel(this) }
     }
 
     private fun observeViewModel(data: MovieTv){
@@ -52,29 +51,11 @@ class DetailActivity : AppCompatActivity() {
             viewModel.getDetailMovie(data.id).observe(this){
                 processResponse(it)
             }
-            viewModel.getFavoriteMovie(data.id).observe(this){
-                if(it == null){
-                    //TODO is favorite false
-                }else{
-                    processFavoriteResult(it)
-                }
-            }
         }else{
             viewModel.getDetailTv(data.id).observe(this){
                 processResponse(it)
             }
-            viewModel.getFavoriteTv(data.id).observe(this){
-                if(it == null){
-                    //TODO is favorite false
-                }else{
-                    processFavoriteResult(it)
-                }
-            }
         }
-    }
-
-    private fun processFavoriteResult(data: MovieTv){
-        setFabState(true)
     }
 
     private fun setFabClickable(isClickable: Boolean){
@@ -89,9 +70,12 @@ class DetailActivity : AppCompatActivity() {
             is Resource.Success -> {
                 setLoadingState(false)
                 response.data?.run {
+                    data = this
                     viewModel.updateData(this)
                     bindData(this)
                     Timber.d("Bind Data")
+                    setFabClickable(true)
+                    setFabState(this.isFavorite)
                 }
                 Timber.d(response.data.toString())
             }

@@ -21,16 +21,4 @@ class DetailViewModel @Inject constructor(
     fun updateData(data: Content.MovieTv) = viewModelScope.launch(Dispatchers.IO){
         movieTvUseCase.updateData(data)
     }
-
-    fun getFavoriteMovie(id: Long) = movieTvUseCase.getFavoriteMovie(id).asLiveData()
-
-    fun getFavoriteTv(id: Long) = movieTvUseCase.getFavoriteTvShow(id).asLiveData()
-
-    fun setFavorite(data: Content.MovieTv) = viewModelScope.launch(Dispatchers.IO){
-        movieTvUseCase.setFavorite(data)
-    }
-
-    fun removeFavorite(data: Content.MovieTv) = viewModelScope.launch(Dispatchers.IO){
-        movieTvUseCase.removeFavorite(data)
-    }
 }

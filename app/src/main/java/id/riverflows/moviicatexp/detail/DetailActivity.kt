@@ -2,11 +2,9 @@ package id.riverflows.moviicatexp.detail
 
 import android.os.Bundle
 import android.view.View
-import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
-import dagger.hilt.android.AndroidEntryPoint
 import id.riverflows.core.data.Resource
 import id.riverflows.core.domain.model.Content.Companion.TYPE_MOVIE
 import id.riverflows.core.domain.model.Content.Companion.TYPE_TV
@@ -15,12 +13,12 @@ import id.riverflows.core.utils.AppConfig.POSTER_URL_ORIGINAL
 import id.riverflows.core.utils.UtilConstants.EXTRA_MOVIE_TV_DATA
 import id.riverflows.moviicatexp.R
 import id.riverflows.moviicatexp.databinding.ActivityDetailBinding
+import org.koin.androidx.viewmodel.ext.android.viewModel
 import timber.log.Timber
 
-@AndroidEntryPoint
 class DetailActivity : AppCompatActivity() {
     private lateinit var binding: ActivityDetailBinding
-    private val viewModel: DetailViewModel by viewModels()
+    private val viewModel: DetailViewModel by viewModel()
     private var data: MovieTv? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,11 +30,12 @@ class DetailActivity : AppCompatActivity() {
         binding = ActivityDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
         setFabClickable(false)
-        setFabState(true)
+        setFabState(false)
         binding.fabFavorite.setOnClickListener {
             data?.run {
                 this.isFavorite = !this.isFavorite
                 viewModel.updateData(this)
+                setFabState(this.isFavorite)
             }
         }
     }
@@ -114,11 +113,11 @@ class DetailActivity : AppCompatActivity() {
             if(isLoading){
                 viewContainer.visibility = View.INVISIBLE
                 shimmerContainer.visibility = View.VISIBLE
-                shimmerContainer.startShimmerAnimation()
+                shimmerContainer.startShimmer()
             }else{
                 viewContainer.visibility = View.VISIBLE
                 shimmerContainer.visibility = View.INVISIBLE
-                shimmerContainer.stopShimmerAnimation()
+                shimmerContainer.stopShimmer()
             }
         }
     }

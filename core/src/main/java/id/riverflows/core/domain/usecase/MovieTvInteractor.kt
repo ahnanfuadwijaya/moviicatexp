@@ -4,9 +4,10 @@ import id.riverflows.core.data.Resource
 import id.riverflows.core.domain.model.Content.MovieTv
 import id.riverflows.core.domain.repository.IMovieTvRepository
 import kotlinx.coroutines.flow.Flow
-import javax.inject.Inject
 
-class MovieTvInteractor @Inject constructor(private val repository: IMovieTvRepository): MovieTvUseCase {
+class MovieTvInteractor(
+    private val repository: IMovieTvRepository
+): MovieTvUseCase {
 
     override fun getMovies(): Flow<Resource<List<MovieTv>>> = repository.getMovies()
 

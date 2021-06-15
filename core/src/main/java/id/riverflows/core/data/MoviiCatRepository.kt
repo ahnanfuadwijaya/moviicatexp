@@ -10,12 +10,9 @@ import id.riverflows.core.domain.repository.IMovieTvRepository
 import id.riverflows.core.utils.DataMapper
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
-import javax.inject.Inject
-import javax.inject.Singleton
 
 @Suppress("SpellCheckingInspection")
-@Singleton
-class MoviiCatRepository @Inject constructor(
+class MoviiCatRepository(
     private val localDataSource: LocalDataSource,
     private val remoteDataSource: RemoteDataSource,
 ): IMovieTvRepository {

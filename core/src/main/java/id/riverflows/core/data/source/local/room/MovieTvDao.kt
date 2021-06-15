@@ -30,15 +30,15 @@ interface MovieTvDao {
     suspend fun updateData(data: MovieTv)
 
 
-    @Query("SELECT * FROM movies_tv_shows WHERE type = $TYPE_MOVIE AND is_favorite = TRUE")
+    @Query("SELECT * FROM movies_tv_shows WHERE type = $TYPE_MOVIE AND is_favorite = 1")
     fun getFavoriteMovies(): Flow<List<MovieTv>>
 
-    @Query("SELECT * FROM movies_tv_shows WHERE type = $TYPE_TV AND is_favorite = TRUE")
+    @Query("SELECT * FROM movies_tv_shows WHERE type = $TYPE_TV AND is_favorite = 1")
     fun getFavoriteTvShows(): Flow<List<MovieTv>>
 
-    @Query("SELECT * FROM movies_tv_shows WHERE id = :id AND type = $TYPE_MOVIE AND is_favorite = TRUE")
+    @Query("SELECT * FROM movies_tv_shows WHERE id = :id AND type = $TYPE_MOVIE AND is_favorite = 1")
     fun getFavoriteMovie(id: Long): Flow<MovieTv?>
 
-    @Query("SELECT * FROM movies_tv_shows WHERE id = :id AND type = $TYPE_TV AND is_favorite = TRUE")
+    @Query("SELECT * FROM movies_tv_shows WHERE id = :id AND type = $TYPE_TV AND is_favorite = 1")
     fun getFavoriteTv(id: Long): Flow<MovieTv?>
 }

@@ -6,9 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
-import dagger.hilt.android.AndroidEntryPoint
 import id.riverflows.core.data.Resource
 import id.riverflows.core.domain.model.Content
 import id.riverflows.core.ui.adapter.GridRvAdapter
@@ -18,11 +16,11 @@ import id.riverflows.core.utils.UtilConstants
 import id.riverflows.moviicatexp.databinding.FragmentHomeBinding
 import id.riverflows.moviicatexp.detail.DetailActivity
 import id.riverflows.moviicatexp.home.HomeSharedViewModel
+import org.koin.androidx.viewmodel.ext.android.viewModel
 import timber.log.Timber
 
-@AndroidEntryPoint
 class TvFragment : Fragment(), GridRvAdapter.OnItemClickCallback {
-    private val viewModel: HomeSharedViewModel by viewModels()
+    private val viewModel: HomeSharedViewModel by viewModel()
     private val rvAdapter = GridRvAdapter()
     private var _binding: FragmentHomeBinding? = null
     private val binding

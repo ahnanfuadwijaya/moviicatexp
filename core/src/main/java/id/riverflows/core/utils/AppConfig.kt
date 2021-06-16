@@ -10,4 +10,5 @@ object AppConfig {
     const val TMDB_TOKEN = ""
     const val CONNECT_TIME_OUT = 120L
     const val READ_TIME_OUT = 120L
+    const val GRID_ITEM_COUNT = 2
 }

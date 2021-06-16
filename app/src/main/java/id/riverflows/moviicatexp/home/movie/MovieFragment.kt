@@ -11,10 +11,10 @@ import id.riverflows.core.data.Resource
 import id.riverflows.core.domain.model.Content
 import id.riverflows.core.ui.adapter.GridRvAdapter
 import id.riverflows.core.ui.decoration.SpaceItemDecoration
+import id.riverflows.core.utils.AppConfig.GRID_ITEM_COUNT
 import id.riverflows.core.utils.AppConfig.SPACE_ITEM_DECORATION
 import id.riverflows.core.utils.UtilConstants.EXTRA_MOVIE_TV_DATA
-import id.riverflows.core.utils.UtilConstants.GRID_ITEM_COUNT
-import id.riverflows.moviicatexp.databinding.FragmentHomeBinding
+import id.riverflows.moviicatexp.databinding.FragmentListContainerBinding
 import id.riverflows.moviicatexp.detail.DetailActivity
 import id.riverflows.moviicatexp.home.HomeSharedViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -23,7 +23,7 @@ import timber.log.Timber
 class MovieFragment : Fragment(), GridRvAdapter.OnItemClickCallback {
     private val viewModel: HomeSharedViewModel by viewModel()
     private val rvAdapter = GridRvAdapter()
-    private var _binding: FragmentHomeBinding? = null
+    private var _binding: FragmentListContainerBinding? = null
     private val binding
         get() = _binding
 
@@ -31,7 +31,7 @@ class MovieFragment : Fragment(), GridRvAdapter.OnItemClickCallback {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding = FragmentHomeBinding.inflate(layoutInflater, container, false)
+        _binding = FragmentListContainerBinding.inflate(layoutInflater, container, false)
         return binding?.root
     }
 

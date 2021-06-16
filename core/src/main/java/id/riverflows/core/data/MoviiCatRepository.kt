@@ -45,7 +45,7 @@ class MoviiCatRepository(
 
             override fun shouldFetch(data: Content.MovieTv?): Boolean{
                 if(data == null) return true
-                return validateIsDetail(data)
+                return isDetailDataObtained(data)
             }
 
             override suspend fun createCall(): Flow<ApiResponse<MovieResponse.Detail>> {
@@ -53,7 +53,7 @@ class MoviiCatRepository(
             }
 
             override suspend fun saveCallResult(data: MovieResponse.Detail) {
-                localDataSource.insertData(DataMapper.mapMovieDetailResponseToEntity(data))
+                localDataSource.updateData(DataMapper.mapMovieDetailResponseToEntity(data))
             }
         }.asFlow()
 
@@ -86,7 +86,7 @@ class MoviiCatRepository(
 
             override fun shouldFetch(data: Content.MovieTv?): Boolean{
                 if(data == null) return true
-                return validateIsDetail(data)
+                return isDetailDataObtained(data)
             }
 
             override suspend fun createCall(): Flow<ApiResponse<TvResponse.Detail>> {
@@ -94,7 +94,7 @@ class MoviiCatRepository(
             }
 
             override suspend fun saveCallResult(data: TvResponse.Detail) {
-                localDataSource.insertData(DataMapper.mapTvDetailResponseToEntity(data))
+                localDataSource.updateData(DataMapper.mapTvDetailResponseToEntity(data))
             }
         }.asFlow()
 
@@ -108,35 +108,13 @@ class MoviiCatRepository(
         }
     }
 
-    override fun getFavoriteMovie(id: Long): Flow<Content.MovieTv?> {
-        return(localDataSource.getFavoriteMovie(id)).map {
-            if(it == null) null else DataMapper.mapEntityToDomain(it)
-        }
-    }
-
     override fun getFavoriteTvShows(): Flow<List<Content.MovieTv>> {
         return localDataSource.getFavoriteTvShows().map {
             DataMapper.mapEntitiesToDomains(it)
         }
     }
 
-    override fun getFavoriteTvShow(id: Long): Flow<Content.MovieTv?> {
-        return localDataSource.getFavoriteTv(id).map {
-            if(it == null) null else DataMapper.mapEntityToDomain(it)
-        }
-    }
-
-    override suspend fun setFavorite(data: Content.MovieTv) {
-        data.isFavorite = true
-        localDataSource.updateData(DataMapper.mapDomainToEntity(data))
-    }
-
-    override suspend fun removeFavorite(data: Content.MovieTv) {
-        data.isFavorite = false
-        localDataSource.updateData(DataMapper.mapDomainToEntity(data))
-    }
-
-    private fun validateIsDetail(data: Content.MovieTv): Boolean{
+    private fun isDetailDataObtained(data: Content.MovieTv): Boolean{
         return data.overview == null || data.popularity == null || data.status == null
     }
 }

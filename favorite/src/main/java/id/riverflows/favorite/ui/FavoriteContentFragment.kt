@@ -1,5 +1,6 @@
 package id.riverflows.favorite.ui
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -11,7 +12,9 @@ import id.riverflows.core.domain.model.Content
 import id.riverflows.core.ui.adapter.GridRvAdapter
 import id.riverflows.core.ui.decoration.SpaceItemDecoration
 import id.riverflows.core.utils.AppConfig
+import id.riverflows.core.utils.UtilConstants.EXTRA_MOVIE_TV_DATA
 import id.riverflows.moviicatexp.databinding.FragmentListContainerBinding
+import id.riverflows.moviicatexp.detail.DetailActivity
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -21,7 +24,7 @@ import timber.log.Timber
 
 class FavoriteContentFragment(
     private val type: Int
-) : Fragment() {
+) : Fragment(), GridRvAdapter.OnItemClickCallback {
     private var _binding: FragmentListContainerBinding? = null
     private val binding
         get() = _binding
@@ -48,6 +51,7 @@ class FavoriteContentFragment(
             this?.addItemDecoration(SpaceItemDecoration(AppConfig.SPACE_ITEM_DECORATION))
             this?.adapter = rvAdapter
         }
+        rvAdapter.setOnItemClickCallback(this)
     }
 
     private fun observeViewModel(){
@@ -71,11 +75,20 @@ class FavoriteContentFragment(
 
     override fun onDestroy() {
         super.onDestroy()
+        binding?.rvList?.adapter = null
         _binding = null
     }
 
     companion object {
         @JvmStatic
         fun newInstance(type: Int) = FavoriteContentFragment(type)
+    }
+
+    override fun onItemClicked(data: Content.MovieTv) {
+        startActivity(
+            Intent(context, DetailActivity::class.java).apply {
+                putExtra(EXTRA_MOVIE_TV_DATA, data)
+            }
+        )
     }
 }

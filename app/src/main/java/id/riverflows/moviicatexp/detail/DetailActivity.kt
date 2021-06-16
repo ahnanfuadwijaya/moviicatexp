@@ -6,7 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import id.riverflows.core.data.Resource
-import id.riverflows.core.domain.model.Content.Companion.TYPE_MOVIE
+import id.riverflows.core.domain.model.Content
 import id.riverflows.core.domain.model.Content.Companion.TYPE_TV
 import id.riverflows.core.domain.model.Content.MovieTv
 import id.riverflows.core.utils.AppConfig.POSTER_URL_ORIGINAL
@@ -29,7 +29,6 @@ class DetailActivity : AppCompatActivity() {
     private fun setupInitialView(){
         binding = ActivityDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        setFabClickable(false)
         setFabState(false)
         binding.fabFavorite.setOnClickListener {
             data?.run {
@@ -42,23 +41,21 @@ class DetailActivity : AppCompatActivity() {
 
     private fun requestData(){
         data = intent.getParcelableExtra(EXTRA_MOVIE_TV_DATA)
-        data?.run { observeViewModel(this) }
+        observeViewModel()
     }
 
-    private fun observeViewModel(data: MovieTv){
-        if(data.type == TYPE_MOVIE){
-            viewModel.getDetailMovie(data.id).observe(this){
-                processResponse(it)
-            }
-        }else{
-            viewModel.getDetailTv(data.id).observe(this){
-                processResponse(it)
+    private fun observeViewModel(){
+        data?.run {
+            if(type == Content.TYPE_MOVIE){
+                viewModel.getDetailMovie(id).observe(this@DetailActivity){
+                    processResponse(it)
+                }
+            }else{
+                viewModel.getDetailTv(id).observe(this@DetailActivity){
+                    processResponse(it)
+                }
             }
         }
-    }
-
-    private fun setFabClickable(isClickable: Boolean){
-        binding.fabFavorite.isClickable = isClickable
     }
 
     private fun processResponse(response: Resource<MovieTv>){
@@ -69,12 +66,8 @@ class DetailActivity : AppCompatActivity() {
             is Resource.Success -> {
                 setLoadingState(false)
                 response.data?.run {
-                    data = this
-                    viewModel.updateData(this)
                     bindData(this)
                     Timber.d("Bind Data")
-                    setFabClickable(true)
-                    setFabState(this.isFavorite)
                 }
                 Timber.d(response.data.toString())
             }
@@ -90,7 +83,9 @@ class DetailActivity : AppCompatActivity() {
         val date =
             if(data.type == TYPE_TV)
                 "${data.releaseDate} - ${data.lastDate}"
-            else data.releaseDate
+            else
+                data.releaseDate
+
         with(binding){
             tvTitle.text = data.title
             tvPopularity.text = data.popularity.toString()
@@ -105,7 +100,9 @@ class DetailActivity : AppCompatActivity() {
                     .error(R.drawable.ic_broken_image)
                 )
                 .into(ivPoster)
+            setFabState(data.isFavorite)
         }
+        this.data = data
     }
 
     private fun setLoadingState(isLoading: Boolean){

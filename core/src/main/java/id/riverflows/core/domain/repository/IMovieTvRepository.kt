@@ -11,9 +11,5 @@ interface IMovieTvRepository {
     fun getDetailTv(id: Long): Flow<Resource<MovieTv>>
     suspend fun updateData(data: MovieTv)
     fun getFavoriteMovies(): Flow<List<MovieTv>>
-    fun getFavoriteMovie(id: Long): Flow<MovieTv?>
     fun getFavoriteTvShows(): Flow<List<MovieTv>>
-    fun getFavoriteTvShow(id: Long): Flow<MovieTv?>
-    suspend fun setFavorite(data: MovieTv)
-    suspend fun removeFavorite(data: MovieTv)
 }

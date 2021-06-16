@@ -4,9 +4,11 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
+import id.riverflows.core.R
 import id.riverflows.core.databinding.ItemMovieTvGridBinding
-import id.riverflows.core.domain.model.Content.*
-import id.riverflows.core.ui.adapter.GridRvAdapter.*
+import id.riverflows.core.domain.model.Content.MovieTv
+import id.riverflows.core.ui.adapter.GridRvAdapter.MovieGridViewHolder
 import id.riverflows.core.utils.AppConfig.POSTER_URL
 
 class GridRvAdapter: RecyclerView.Adapter<MovieGridViewHolder>() {
@@ -43,6 +45,11 @@ class GridRvAdapter: RecyclerView.Adapter<MovieGridViewHolder>() {
                 tvDate.text = data.releaseDate
                 Glide.with(context)
                     .load("$POSTER_URL/${data.posterPath}")
+                    .apply(
+                        RequestOptions()
+                            .placeholder(R.drawable.ic_loading)
+                            .error(R.drawable.ic_broken_image)
+                    )
                     .into(ivPoster)
             }
             itemView.setOnClickListener { onItemClickCallback.onItemClicked(data) }

@@ -67,6 +67,7 @@ class TvFragment : Fragment(), GridRvAdapter.OnItemClickCallback {
 
     override fun onDestroy() {
         super.onDestroy()
+        binding?.rvList?.adapter = null
         _binding = null
     }
 

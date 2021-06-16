@@ -23,9 +23,6 @@ interface MovieTvDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertList(list: List<MovieTv>)
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertData(data: MovieTv)
-
     @Update
     suspend fun updateData(data: MovieTv)
 

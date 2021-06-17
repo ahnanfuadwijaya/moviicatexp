@@ -1,4 +1,4 @@
-package id.riverflows.core.ui.decoration
+package id.riverflows.core.presentation.ui.decoration
 
 import android.graphics.Rect
 import android.view.View

@@ -1,7 +1,7 @@
 package id.riverflows.core.domain.repository
 
 import id.riverflows.core.data.Resource
-import id.riverflows.core.domain.model.Content.MovieTv
+import id.riverflows.core.domain.model.MovieTv
 import kotlinx.coroutines.flow.Flow
 
 interface IMovieTvRepository {
@@ -12,4 +12,8 @@ interface IMovieTvRepository {
     suspend fun updateData(data: MovieTv)
     fun getFavoriteMovies(): Flow<List<MovieTv>>
     fun getFavoriteTvShows(): Flow<List<MovieTv>>
+    fun searchMovies(query: String, page: Long): Flow<Resource<List<MovieTv>>>
+    fun searchTvShows(query: String, page: Long): Flow<Resource<List<MovieTv>>>
+    fun searchFavoriteMovies(query: String): Flow<List<MovieTv>>
+    fun searchFavoriteTvShows(query: String): Flow<List<MovieTv>>
 }

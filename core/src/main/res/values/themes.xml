@@ -5,6 +5,10 @@
         <item name="android:layout_width">@dimen/item_poster_width</item>
     </style>
 
+    <style name="RVItemPoster.Shimmer">
+        <item name="android:background">@color/dark_grey_200</item>
+    </style>
+
     <style name="RVItemTitle">
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_width">match_parent</item>
@@ -15,8 +19,17 @@
         <item name="android:textSize">@dimen/text_size_item_title</item>
         <item name="android:textColor">@color/black</item>
     </style>
+
+    <style name="RVItemTitle.Shimmer">
+        <item name="android:background">@color/dark_grey_200</item>
+    </style>
+
     <style name="RVItemTitle.List">
         <item name="android:layout_width">0dp</item>
+    </style>
+
+    <style name="RVItemTitle.List.Shimmer">
+        <item name="android:background">@color/dark_grey_200</item>
     </style>
 
     <style name="RVItemScore">
@@ -28,9 +41,17 @@
         <item name="android:textColor">@color/black</item>
     </style>
 
+    <style name="RVItemScore.Shimmer">
+        <item name="android:background">@color/dark_grey_200</item>
+    </style>
+
     <style name="RVItemIvScore">
         <item name="android:layout_width">@dimen/item_progress_size</item>
         <item name="android:layout_height">@dimen/item_progress_size</item>
+    </style>
+
+    <style name="RVItemIvScore.Shimmer">
+        <item name="android:background">@color/dark_grey_200</item>
     </style>
 
     <style name="RVItemField">
@@ -41,7 +62,27 @@
         <item name="android:ellipsize">end</item>
         <item name="android:textSize">@dimen/text_size_item_field</item>
     </style>
+
+    <style name="RVItemField.Shimmer">
+        <item name="android:background">@color/dark_grey_200</item>
+    </style>
+
     <style name="RVItemField.List">
         <item name="android:layout_width">0dp</item>
+    </style>
+
+    <style name="RVItemField.List.Shimmer">
+        <item name="android:background">@color/dark_grey_200</item>
+    </style>
+
+    <style name="StateMessage">
+        <item name="android:textSize">34sp</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
+    <style name="CProgressbarBig">
+        <item name="android:layout_height">@dimen/circular_progressbar_size_big</item>
+        <item name="android:layout_width">@dimen/circular_progressbar_size_big</item>
+        <item name="android:indeterminate">true</item>
+        <item name="android:indeterminateTint">@color/black</item>
     </style>
 </resources>

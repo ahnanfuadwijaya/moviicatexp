@@ -6,11 +6,12 @@ import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import id.riverflows.core.data.Resource
-import id.riverflows.core.domain.model.Content
-import id.riverflows.core.domain.model.Content.Companion.TYPE_TV
-import id.riverflows.core.domain.model.Content.MovieTv
+import id.riverflows.core.domain.model.MovieTv
 import id.riverflows.core.utils.AppConfig.POSTER_URL_ORIGINAL
 import id.riverflows.core.utils.UtilConstants.EXTRA_MOVIE_TV_DATA
+import id.riverflows.core.utils.UtilConstants.TYPE_MOVIE
+import id.riverflows.core.utils.UtilConstants.TYPE_TV
+import id.riverflows.core.utils.Utils
 import id.riverflows.moviicatexp.R
 import id.riverflows.moviicatexp.databinding.ActivityDetailBinding
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -35,6 +36,12 @@ class DetailActivity : AppCompatActivity() {
                 this.isFavorite = !this.isFavorite
                 viewModel.updateData(this)
                 setFabState(this.isFavorite)
+                val message = if(this.isFavorite){
+                    getString(R.string.message_added_to_favorites)
+                }else{
+                    getString(R.string.message_removed_from_favorites)
+                }
+                Utils.showIndefiniteSnackBar(binding.root, message)
             }
         }
     }
@@ -46,7 +53,7 @@ class DetailActivity : AppCompatActivity() {
 
     private fun observeViewModel(){
         data?.run {
-            if(type == Content.TYPE_MOVIE){
+            if(type == TYPE_MOVIE){
                 viewModel.getDetailMovie(id).observe(this@DetailActivity){
                     processResponse(it)
                 }
@@ -73,8 +80,9 @@ class DetailActivity : AppCompatActivity() {
             }
             is Resource.Error -> {
                 setLoadingState(false)
-                Timber.d(response.toString())
-                Timber.d(response.message)
+                response.message?.run {
+                    Utils.showIndefiniteSnackBar(binding.root, this)
+                }
             }
         }
     }

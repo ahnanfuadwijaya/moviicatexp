@@ -6,18 +6,18 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
-import id.riverflows.core.domain.model.Content
-import id.riverflows.core.ui.adapter.GridRvAdapter
-import id.riverflows.core.ui.decoration.SpaceItemDecoration
+import id.riverflows.core.domain.model.MovieTv
+import id.riverflows.core.presentation.ui.adapter.GridRvAdapter
+import id.riverflows.core.presentation.ui.decoration.SpaceItemDecoration
 import id.riverflows.core.utils.AppConfig
+import id.riverflows.core.utils.State
+import id.riverflows.core.utils.State.NO_DATA
+import id.riverflows.core.utils.State.SUCCESS
 import id.riverflows.core.utils.UtilConstants.EXTRA_MOVIE_TV_DATA
+import id.riverflows.core.utils.UtilConstants.TYPE_MOVIE
 import id.riverflows.moviicatexp.databinding.FragmentListContainerBinding
 import id.riverflows.moviicatexp.detail.DetailActivity
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.collectLatest
-import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import timber.log.Timber
 
@@ -42,6 +42,16 @@ class FavoriteContentFragment(
         super.onViewCreated(view, savedInstanceState)
         setupView()
         observeViewModel()
+        requestData()
+    }
+
+    private fun requestData(){
+        if(type == TYPE_MOVIE){
+            viewModel.getFavoriteMovies()
+        }else{
+            viewModel.getFavoriteTvShows()
+        }
+        Timber.d("$type")
     }
 
     private fun setupView(){
@@ -55,20 +65,30 @@ class FavoriteContentFragment(
     }
 
     private fun observeViewModel(){
-        lifecycleScope.launch(Dispatchers.Main){
-            if(type == Content.TYPE_MOVIE){
-                viewModel.favoriteMovies.collectLatest{
+        if(type == TYPE_MOVIE){
+            viewModel.favoriteMovies.observe(viewLifecycleOwner){
+                if(it.isEmpty()) {
+                    setState(NO_DATA)
+                } else {
+                    setState(SUCCESS)
                     bindData(it)
                 }
-            }else{
-                viewModel.favoriteTvShows.collectLatest {
+                Timber.d("$type, $it")
+            }
+        }else{
+            viewModel.favoriteTvShows.observe(viewLifecycleOwner){
+                if(it.isEmpty()) {
+                    setState(NO_DATA)
+                } else {
+                    setState(SUCCESS)
                     bindData(it)
                 }
+                Timber.d("$type, $it")
             }
         }
     }
 
-    private fun bindData(list: List<Content.MovieTv>){
+    private fun bindData(list: List<MovieTv>){
         rvAdapter.setList(list)
         Timber.d(list.toString())
     }
@@ -84,11 +104,26 @@ class FavoriteContentFragment(
         fun newInstance(type: Int) = FavoriteContentFragment(type)
     }
 
-    override fun onItemClicked(data: Content.MovieTv) {
+    override fun onItemClicked(data: MovieTv) {
         startActivity(
             Intent(context, DetailActivity::class.java).apply {
                 putExtra(EXTRA_MOVIE_TV_DATA, data)
             }
         )
+    }
+
+    private fun setState(state: State){
+        if(state==SUCCESS){
+            binding?.rvList?.visibility = View.VISIBLE
+            binding?.viewLoadingShimmer?.stopShimmer()
+            binding?.viewLoadingShimmer?.visibility = View.GONE
+            binding?.viewNoData?.root?.visibility = View.GONE
+        }
+        else if(state == NO_DATA){
+            binding?.rvList?.visibility = View.GONE
+            binding?.viewLoadingShimmer?.stopShimmer()
+            binding?.viewLoadingShimmer?.visibility = View.GONE
+            binding?.viewNoData?.root?.visibility = View.VISIBLE
+        }
     }
 }

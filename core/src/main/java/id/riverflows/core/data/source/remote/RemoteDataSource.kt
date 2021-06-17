@@ -69,5 +69,45 @@ class RemoteDataSource (
             }
         }.flowOn(Dispatchers.IO)
     }
+
+    suspend fun getMoviesSearchResult(
+        query: String,
+        page: Long
+    ): Flow<ApiResponse<List<MovieResponse.Item>>>{
+        return flow {
+            try {
+                val response = apiService.getMoviesSearchResult(query, page)
+                val dataArray = response.data
+                if (dataArray.isNotEmpty()){
+                    emit(ApiResponse.Success(response.data))
+                } else {
+                    emit(ApiResponse.Empty)
+                }
+            } catch (e : Exception) {
+                emit(ApiResponse.Error(e.toString()))
+                Timber.d(e.toString())
+            }
+        }.flowOn(Dispatchers.IO)
+    }
+
+    suspend fun getTvShowsSearchResult(
+        query: String,
+        page: Long
+    ): Flow<ApiResponse<List<TvResponse.Item>>>{
+        return flow {
+            try {
+                val response = apiService.getTvShowsSearchResult(query, page)
+                val dataArray = response.data
+                if (dataArray.isNotEmpty()){
+                    emit(ApiResponse.Success(response.data))
+                } else {
+                    emit(ApiResponse.Empty)
+                }
+            } catch (e : Exception) {
+                emit(ApiResponse.Error(e.toString()))
+                Timber.d(e.toString())
+            }
+        }.flowOn(Dispatchers.IO)
+    }
 }
 

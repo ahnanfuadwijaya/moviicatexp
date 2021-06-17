@@ -1,14 +1,16 @@
 package id.riverflows.core.utils
 
-import id.riverflows.core.data.source.local.entity.Entity
+import id.riverflows.core.data.source.local.entity.MovieTvEntity
 import id.riverflows.core.data.source.remote.response.MovieResponse
 import id.riverflows.core.data.source.remote.response.TvResponse
-import id.riverflows.core.domain.model.Content
+import id.riverflows.core.domain.model.MovieTv
+import id.riverflows.core.utils.UtilConstants.TYPE_MOVIE
+import id.riverflows.core.utils.UtilConstants.TYPE_TV
 
 object DataMapper {
-    fun mapEntitiesToDomains(input: List<Entity.MovieTv>): List<Content.MovieTv>{
+    fun mapEntitiesToDomains(input: List<MovieTvEntity>): List<MovieTv>{
         return input.map {
-            Content.MovieTv(
+            MovieTv(
                 it.id,
                 it.title,
                 it.voteAverage,
@@ -24,9 +26,9 @@ object DataMapper {
         }
     }
 
-    fun mapMoviesResponseToEntities(input: List<MovieResponse.Item>): List<Entity.MovieTv>{
+    fun mapMoviesResponseToEntities(input: List<MovieResponse.Item>): List<MovieTvEntity>{
         return input.map {
-            Entity.MovieTv(
+            MovieTvEntity(
                 it.id,
                 it.title,
                 it.voteAverage,
@@ -36,14 +38,14 @@ object DataMapper {
                 null,
                 null,
                 null,
-                Entity.TYPE_MOVIE,
+                TYPE_MOVIE,
             )
         }
     }
 
-    fun mapTvShowsResponseToEntities(input: List<TvResponse.Item>): List<Entity.MovieTv>{
+    fun mapTvShowsResponseToEntities(input: List<TvResponse.Item>): List<MovieTvEntity>{
         return input.map {
-            Entity.MovieTv(
+            MovieTvEntity(
                 it.id,
                 it.name,
                 it.voteAverage,
@@ -53,13 +55,13 @@ object DataMapper {
                 null,
                 null,
                 null,
-                Entity.TYPE_TV
+                TYPE_TV
             )
         }
     }
 
-    fun mapEntityToDomain(input: Entity.MovieTv): Content.MovieTv{
-        return Content.MovieTv(
+    fun mapEntityToDomain(input: MovieTvEntity): MovieTv{
+        return MovieTv(
             input.id,
             input.title,
             input.voteAverage,
@@ -74,8 +76,8 @@ object DataMapper {
         )
     }
 
-    fun mapMovieDetailResponseToEntity(input: MovieResponse.Detail): Entity.MovieTv{
-        return Entity.MovieTv(
+    fun mapMovieDetailResponseToEntity(input: MovieResponse.Detail): MovieTvEntity{
+        return MovieTvEntity(
             input.id,
             input.title,
             input.voteAverage,
@@ -85,12 +87,12 @@ object DataMapper {
             input.overview,
             input.popularity,
             input.status,
-            Entity.TYPE_MOVIE,
+            TYPE_MOVIE,
         )
     }
 
-    fun mapTvDetailResponseToEntity(input: TvResponse.Detail): Entity.MovieTv{
-        return Entity.MovieTv(
+    fun mapTvDetailResponseToEntity(input: TvResponse.Detail): MovieTvEntity{
+        return MovieTvEntity(
             input.id,
             input.name,
             input.voteAverage,
@@ -100,12 +102,12 @@ object DataMapper {
             input.overview,
             input.popularity,
             input.status,
-            Entity.TYPE_TV,
+            TYPE_TV,
         )
     }
 
-    fun mapDomainToEntity(input: Content.MovieTv): Entity.MovieTv{
-        return Entity.MovieTv(
+    fun mapDomainToEntity(input: MovieTv): MovieTvEntity{
+        return MovieTvEntity(
             input.id,
             input.title,
             input.voteAverage,

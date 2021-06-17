@@ -16,4 +16,6 @@
     <dimen name="shimmer_detail_field_width">100dp</dimen>
     <dimen name="shimmer_detail_field_height">32dp</dimen>
     <dimen name="detail_poster_min_height">350dp</dimen>
+    <dimen name="action_bar_size">112dp</dimen>
+    <dimen name="circular_progressbar_size_big">156dp</dimen>
 </resources>

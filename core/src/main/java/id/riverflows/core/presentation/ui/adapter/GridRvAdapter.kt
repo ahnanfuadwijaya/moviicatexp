@@ -1,4 +1,4 @@
-package id.riverflows.core.ui.adapter
+package id.riverflows.core.presentation.ui.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -7,8 +7,8 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import id.riverflows.core.R
 import id.riverflows.core.databinding.ItemMovieTvGridBinding
-import id.riverflows.core.domain.model.Content.MovieTv
-import id.riverflows.core.ui.adapter.GridRvAdapter.MovieGridViewHolder
+import id.riverflows.core.domain.model.MovieTv
+import id.riverflows.core.presentation.ui.adapter.GridRvAdapter.MovieGridViewHolder
 import id.riverflows.core.utils.AppConfig.POSTER_URL
 
 class GridRvAdapter: RecyclerView.Adapter<MovieGridViewHolder>() {

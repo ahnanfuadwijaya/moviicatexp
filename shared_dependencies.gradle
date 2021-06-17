@@ -16,6 +16,9 @@ dependencies{
     //timber
     implementation "com.jakewharton.timber:timber:$timber_version"
 
+    //shimmer
+    implementation "com.facebook.shimmer:shimmer:$shimmer_version"
+
     //glide
     kapt "com.github.bumptech.glide:compiler:$glide_version"
     implementation "com.github.bumptech.glide:glide:$glide_version"

@@ -1,8 +1,8 @@
-package id.riverflows.core.utils
+package id.riverflows.moviicatexp.utils
 
 import android.view.View
 import com.google.android.material.snackbar.Snackbar
-import id.riverflows.core.R
+import id.riverflows.moviicatexp.R
 
 object Utils {
 

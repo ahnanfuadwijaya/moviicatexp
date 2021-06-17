@@ -1,15 +1,15 @@
-package id.riverflows.core.presentation.ui.adapter
+package id.riverflows.moviicatexp.ui
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
-import id.riverflows.core.R
-import id.riverflows.core.databinding.ItemMovieTvGridBinding
 import id.riverflows.core.domain.model.MovieTv
-import id.riverflows.core.presentation.ui.adapter.GridRvAdapter.MovieGridViewHolder
 import id.riverflows.core.utils.AppConfig.POSTER_URL
+import id.riverflows.moviicatexp.R
+import id.riverflows.moviicatexp.databinding.ItemMovieTvGridBinding
+import id.riverflows.moviicatexp.ui.GridRvAdapter.MovieGridViewHolder
 
 class GridRvAdapter: RecyclerView.Adapter<MovieGridViewHolder>() {
     private val list = mutableListOf<MovieTv>()

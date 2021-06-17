@@ -11,9 +11,9 @@ import id.riverflows.core.utils.AppConfig.POSTER_URL_ORIGINAL
 import id.riverflows.core.utils.UtilConstants.EXTRA_MOVIE_TV_DATA
 import id.riverflows.core.utils.UtilConstants.TYPE_MOVIE
 import id.riverflows.core.utils.UtilConstants.TYPE_TV
-import id.riverflows.core.utils.Utils
 import id.riverflows.moviicatexp.R
 import id.riverflows.moviicatexp.databinding.ActivityDetailBinding
+import id.riverflows.moviicatexp.utils.Utils
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import timber.log.Timber
 

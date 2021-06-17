@@ -6,10 +6,10 @@
     <string name="title_movie">Movie</string>
     <string name="text_separator">|</string>
     <string name="title_overview">Overview</string>
-    <string name="Detail">title_detail</string>
-    <string name="Home">title_home</string>
     <string name="search_hint">Search…</string>
     <string name="message_added_to_favorites">Added to Favorites</string>
     <string name="message_removed_from_favorites">Removed from Favorites</string>
     <string name="message_no_module">No Module</string>
+    <string name="action_close">Close</string>
+    <string name="message_no_data">No Data</string>
 </resources>

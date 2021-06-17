@@ -1,4 +1,4 @@
-package id.riverflows.core.presentation.ui.decoration
+package id.riverflows.moviicatexp.ui
 
 import android.graphics.Rect
 import android.view.View

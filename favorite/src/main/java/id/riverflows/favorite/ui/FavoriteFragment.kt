@@ -10,8 +10,12 @@ import com.google.android.material.tabs.TabLayoutMediator
 import id.riverflows.favorite.R
 import id.riverflows.favorite.databinding.FragmentFavoriteBinding
 import id.riverflows.favorite.di.favoriteViewModelModule
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.FlowPreview
 import org.koin.core.context.loadKoinModules
 
+@FlowPreview
+@ExperimentalCoroutinesApi
 class FavoriteFragment : Fragment() {
     private var _binding: FragmentFavoriteBinding? = null
     private val binding

@@ -12,19 +12,19 @@ import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
 import id.riverflows.core.data.Resource
 import id.riverflows.core.domain.model.MovieTv
-import id.riverflows.core.presentation.ui.adapter.GridRvAdapter
-import id.riverflows.core.presentation.ui.decoration.SpaceItemDecoration
 import id.riverflows.core.utils.AppConfig
 import id.riverflows.core.utils.AppConfig.GRID_ITEM_COUNT
 import id.riverflows.core.utils.State
 import id.riverflows.core.utils.State.*
 import id.riverflows.core.utils.UtilConstants
-import id.riverflows.core.utils.Utils
 import id.riverflows.moviicatexp.R
 import id.riverflows.moviicatexp.databinding.FragmentListContainerBinding
 import id.riverflows.moviicatexp.detail.DetailActivity
 import id.riverflows.moviicatexp.home.HomeActivity
 import id.riverflows.moviicatexp.home.HomeSharedViewModel
+import id.riverflows.moviicatexp.ui.GridRvAdapter
+import id.riverflows.moviicatexp.ui.SpaceItemDecoration
+import id.riverflows.moviicatexp.utils.Utils
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.launch
@@ -90,7 +90,7 @@ class TvFragment : Fragment(), GridRvAdapter.OnItemClickCallback {
             } else {
                 searchView.setQuery("", false)
             }
-            viewModel.getTvShows()
+            requestData()
         }
     }
 

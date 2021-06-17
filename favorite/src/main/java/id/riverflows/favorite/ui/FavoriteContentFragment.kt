@@ -5,23 +5,33 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
+import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
 import id.riverflows.core.domain.model.MovieTv
-import id.riverflows.core.presentation.ui.adapter.GridRvAdapter
-import id.riverflows.core.presentation.ui.decoration.SpaceItemDecoration
 import id.riverflows.core.utils.AppConfig
 import id.riverflows.core.utils.State
 import id.riverflows.core.utils.State.NO_DATA
 import id.riverflows.core.utils.State.SUCCESS
 import id.riverflows.core.utils.UtilConstants.EXTRA_MOVIE_TV_DATA
 import id.riverflows.core.utils.UtilConstants.TYPE_MOVIE
+import id.riverflows.moviicatexp.R
 import id.riverflows.moviicatexp.databinding.FragmentListContainerBinding
 import id.riverflows.moviicatexp.detail.DetailActivity
+import id.riverflows.moviicatexp.home.HomeActivity
+import id.riverflows.moviicatexp.ui.GridRvAdapter
+import id.riverflows.moviicatexp.ui.SpaceItemDecoration
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.FlowPreview
+import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import timber.log.Timber
 
 
+@FlowPreview
+@ExperimentalCoroutinesApi
 class FavoriteContentFragment(
     private val type: Int
 ) : Fragment(), GridRvAdapter.OnItemClickCallback {
@@ -62,11 +72,54 @@ class FavoriteContentFragment(
             this?.adapter = rvAdapter
         }
         rvAdapter.setOnItemClickCallback(this)
+        val searchView: SearchView = (activity as HomeActivity).findViewById(R.id.search_view)
+        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener{
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                search(query)
+                return true
+            }
+            override fun onQueryTextChange(newText: String?): Boolean {
+                search(newText)
+                return true
+            }
+        })
+
+        val clearSearchResultButton: ImageView = searchView.findViewById(androidx.appcompat.R.id.search_close_btn)
+        clearSearchResultButton.setOnClickListener {
+            if(searchView.query.isEmpty()) {
+                searchView.isIconified = true
+            } else {
+                searchView.setQuery("", false)
+            }
+            requestData()
+        }
+    }
+
+    private fun search(query: String?){
+        Timber.d("Search $type")
+        if(type == TYPE_MOVIE){
+            lifecycleScope.launch {
+                viewModel.moviesQueryChannel.send(query.toString())
+            }
+        }else{
+            lifecycleScope.launch {
+                viewModel.tvShowsQueryChannel.send(query.toString())
+            }
+        }
     }
 
     private fun observeViewModel(){
         if(type == TYPE_MOVIE){
-            viewModel.favoriteMovies.observe(viewLifecycleOwner){
+            viewModel.movies.observe(viewLifecycleOwner){
+                if(it.isEmpty()) {
+                    setState(NO_DATA)
+                } else {
+                    setState(SUCCESS)
+                    bindData(it)
+                }
+                Timber.d("$type, $it")
+            }
+            viewModel.moviesResult.observe(viewLifecycleOwner){
                 if(it.isEmpty()) {
                     setState(NO_DATA)
                 } else {
@@ -76,7 +129,16 @@ class FavoriteContentFragment(
                 Timber.d("$type, $it")
             }
         }else{
-            viewModel.favoriteTvShows.observe(viewLifecycleOwner){
+            viewModel.tvShows.observe(viewLifecycleOwner){
+                if(it.isEmpty()) {
+                    setState(NO_DATA)
+                } else {
+                    setState(SUCCESS)
+                    bindData(it)
+                }
+                Timber.d("$type, $it")
+            }
+            viewModel.tvShowsResult.observe(viewLifecycleOwner){
                 if(it.isEmpty()) {
                     setState(NO_DATA)
                 } else {
@@ -97,11 +159,6 @@ class FavoriteContentFragment(
         super.onDestroy()
         binding?.rvList?.adapter = null
         _binding = null
-    }
-
-    companion object {
-        @JvmStatic
-        fun newInstance(type: Int) = FavoriteContentFragment(type)
     }
 
     override fun onItemClicked(data: MovieTv) {
@@ -125,5 +182,10 @@ class FavoriteContentFragment(
             binding?.viewLoadingShimmer?.visibility = View.GONE
             binding?.viewNoData?.root?.visibility = View.VISIBLE
         }
+    }
+
+    companion object {
+        @JvmStatic
+        fun newInstance(type: Int) = FavoriteContentFragment(type)
     }
 }

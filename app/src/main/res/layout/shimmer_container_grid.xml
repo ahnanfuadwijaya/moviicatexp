@@ -20,7 +20,7 @@
 
         <include
             android:id="@+id/card_1"
-            layout="@layout/shimmer_item_grid"
+            layout="@layout/item_movie_tv_grid_shimmer"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
@@ -32,7 +32,7 @@
 
         <include
             android:id="@+id/card_2"
-            layout="@layout/shimmer_item_grid"
+            layout="@layout/item_movie_tv_grid_shimmer"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="4dp"
@@ -44,7 +44,7 @@
 
         <include
             android:id="@+id/card_3"
-            layout="@layout/shimmer_item_grid"
+            layout="@layout/item_movie_tv_grid_shimmer"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
@@ -56,7 +56,7 @@
 
         <include
             android:id="@+id/card_4"
-            layout="@layout/shimmer_item_grid"
+            layout="@layout/item_movie_tv_grid_shimmer"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="4dp"
@@ -68,7 +68,7 @@
 
         <include
             android:id="@+id/card_5"
-            layout="@layout/shimmer_item_grid"
+            layout="@layout/item_movie_tv_grid_shimmer"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
@@ -80,7 +80,7 @@
 
         <include
             android:id="@+id/card_6"
-            layout="@layout/shimmer_item_grid"
+            layout="@layout/item_movie_tv_grid_shimmer"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="4dp"
@@ -92,7 +92,7 @@
 
         <include
             android:id="@+id/card_7"
-            layout="@layout/shimmer_item_grid"
+            layout="@layout/item_movie_tv_grid_shimmer"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
@@ -106,7 +106,7 @@
 
         <include
             android:id="@+id/card_8"
-            layout="@layout/shimmer_item_grid"
+            layout="@layout/item_movie_tv_grid_shimmer"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="4dp"

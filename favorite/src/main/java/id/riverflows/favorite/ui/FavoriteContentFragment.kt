@@ -95,7 +95,7 @@ class FavoriteContentFragment(
         }
     }
 
-    private fun search(query: String?){
+    internal fun search(query: String?){
         Timber.d("Search $type")
         if(type == TYPE_MOVIE){
             lifecycleScope.launch {

@@ -16,7 +16,7 @@
         tools:layout="@layout/fragment_list_container"/>
     <fragment
         android:id="@+id/nav_favorite"
-        android:name="id.riverflows.favorite.ui.FavoriteFragment"
+        android:name="id.riverflows.favorite.ui.FavoriteContainerFragment"
         android:label="@string/title_favorite"
-        tools:layout="@layout/fragment_favorite"/>
+        tools:layout="@layout/fragment_favorite_container"/>
 </navigation>

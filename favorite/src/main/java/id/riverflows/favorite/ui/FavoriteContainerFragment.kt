@@ -8,16 +8,17 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.google.android.material.tabs.TabLayoutMediator
 import id.riverflows.favorite.R
-import id.riverflows.favorite.databinding.FragmentFavoriteBinding
+import id.riverflows.favorite.databinding.FragmentFavoriteContainerBinding
 import id.riverflows.favorite.di.favoriteViewModelModule
+import id.riverflows.favorite.ui.adapter.FavoriteSectionsPagerAdapter
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
 import org.koin.core.context.loadKoinModules
 
 @FlowPreview
 @ExperimentalCoroutinesApi
-class FavoriteFragment : Fragment() {
-    private var _binding: FragmentFavoriteBinding? = null
+class FavoriteContainerFragment : Fragment() {
+    private var _binding: FragmentFavoriteContainerBinding? = null
     private val binding
         get() = _binding
     private lateinit var pagerAdapter: FavoriteSectionsPagerAdapter
@@ -25,7 +26,7 @@ class FavoriteFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding = FragmentFavoriteBinding.inflate(LayoutInflater.from(context), container, false)
+        _binding = FragmentFavoriteContainerBinding.inflate(LayoutInflater.from(context), container, false)
         return binding?.root
     }
 

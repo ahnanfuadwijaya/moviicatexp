@@ -1,5 +1,5 @@
 # MoviiCat
-> Explore movies and TV Shows for Android Developer Expert Dicoding
+> Explore movies and TV Shows for Android Developer Expert Dicoding Submission
 
 [![ahnanfuadwijaya][circleci-image]][circleci-url]
 

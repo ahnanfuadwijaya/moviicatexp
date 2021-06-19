@@ -11,18 +11,23 @@
         <com.google.android.material.appbar.CollapsingToolbarLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:padding="@dimen/space_small"
             android:minHeight="?attr/actionBarSize"
             app:layout_scrollFlags="scroll|enterAlways|enterAlwaysCollapsed">
-            <androidx.appcompat.widget.SearchView
-                android:id="@+id/search_view"
-                android:theme="@style/Theme.MoviiCatExp"
+            <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                app:queryHint="@string/search_hint"
-                android:iconifiedByDefault="true"
-                android:layout_marginStart="@dimen/space_normal"
-                android:layout_marginEnd="@dimen/space_normal" />
+                android:layout_marginStart="@dimen/space_small"
+                android:layout_marginEnd="@dimen/space_small">
+                <androidx.appcompat.widget.SearchView
+                    android:id="@+id/search_view"
+                    android:theme="@style/Theme.MoviiCatExp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    app:queryHint="@string/search_hint"
+                    android:iconifiedByDefault="true" />
+            </androidx.cardview.widget.CardView>
         </com.google.android.material.appbar.CollapsingToolbarLayout>
     </com.google.android.material.appbar.AppBarLayout>
 

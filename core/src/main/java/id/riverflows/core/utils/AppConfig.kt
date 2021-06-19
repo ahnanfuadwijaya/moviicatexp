@@ -11,4 +11,6 @@ object AppConfig {
     const val CONNECT_TIME_OUT = 120L
     const val READ_TIME_OUT = 120L
     const val GRID_ITEM_COUNT = 2
+    const val DB_NAME = "moviicat.db"
+    const val DB_PASSPHRASE = "moviicat_pssprs"
 }

@@ -9,6 +9,10 @@ import id.riverflows.core.data.source.remote.RemoteDataSource
 import id.riverflows.core.data.source.remote.network.ApiService
 import id.riverflows.core.domain.repository.IMovieTvRepository
 import id.riverflows.core.utils.AppConfig
+import id.riverflows.core.utils.AppConfig.DB_NAME
+import id.riverflows.core.utils.AppConfig.DB_PASSPHRASE
+import net.sqlcipher.database.SQLiteDatabase
+import net.sqlcipher.database.SupportFactory
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import org.koin.android.ext.koin.androidContext
@@ -20,10 +24,14 @@ import java.util.concurrent.TimeUnit
 val databaseModule = module {
     factory { get<MoviiCatDatabase>().movieTvDao() }
     single {
+        val passphrase: ByteArray = SQLiteDatabase.getBytes(DB_PASSPHRASE.toCharArray())
+        val factory = SupportFactory(passphrase)
         Room.databaseBuilder(
             androidContext(),
-            MoviiCatDatabase::class.java, "moviicat.db"
-        ).fallbackToDestructiveMigration()
+            MoviiCatDatabase::class.java, DB_NAME
+        )
+            .openHelperFactory(factory)
+            .fallbackToDestructiveMigration()
             .build()
     }
 }

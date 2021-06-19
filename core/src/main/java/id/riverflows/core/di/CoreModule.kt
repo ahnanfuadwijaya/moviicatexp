@@ -11,8 +11,11 @@ import id.riverflows.core.domain.repository.IMovieTvRepository
 import id.riverflows.core.utils.AppConfig
 import id.riverflows.core.utils.AppConfig.DB_NAME
 import id.riverflows.core.utils.AppConfig.DB_PASSPHRASE
+import id.riverflows.core.utils.AppConfig.HOSTNAME
+import id.riverflows.core.utils.AppConfig.PIN_CERTIFICATE
 import net.sqlcipher.database.SQLiteDatabase
 import net.sqlcipher.database.SupportFactory
+import okhttp3.CertificatePinner
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import org.koin.android.ext.koin.androidContext
@@ -51,10 +54,15 @@ val networkModule = module {
             chain.proceed(request)
         }
 
+        val pinningCertificate = CertificatePinner.Builder()
+            .add(HOSTNAME, "sha256/$PIN_CERTIFICATE")
+            .build()
+
         OkHttpClient.Builder()
             .addInterceptor(interceptor)
             .connectTimeout(AppConfig.CONNECT_TIME_OUT, TimeUnit.SECONDS)
             .readTimeout(AppConfig.READ_TIME_OUT, TimeUnit.SECONDS)
+            .certificatePinner(pinningCertificate)
             .build()
     }
 

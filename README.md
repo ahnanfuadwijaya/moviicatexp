@@ -16,9 +16,9 @@ In this app you can discover or search movies and tv shows using their title, yo
 
 
 ## Features
--Discover Movies and Tv Shows
--Search Movies and TV Shows
--Save Favorites Movies and TV Shows
+- Discover Movies and Tv Shows
+- Search Movies and TV Shows
+- Save Favorites Movies and TV Shows
 
 
 ## Previews

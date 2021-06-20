@@ -39,15 +39,15 @@ interface MovieTvDao {
     @Query("SELECT * FROM movies_tv_shows WHERE id = :id AND type = $TYPE_TV AND is_favorite = 1")
     fun getFavoriteTv(id: Long): Flow<MovieTvEntity?>
 
-    @Query("SELECT * FROM movies_tv_shows WHERE type = $TYPE_MOVIE AND title LIKE :query")
+    @Query("SELECT * FROM movies_tv_shows WHERE type = $TYPE_MOVIE AND title LIKE '%'||:query||'%'")
     fun getMoviesSearchResult(query: String): Flow<List<MovieTvEntity>>
 
-    @Query("SELECT * FROM movies_tv_shows WHERE type = $TYPE_TV AND title LIKE :query")
+    @Query("SELECT * FROM movies_tv_shows WHERE type = $TYPE_TV AND title LIKE '%'||:query||'%'")
     fun getTvShowsSearchResult(query: String): Flow<List<MovieTvEntity>>
 
-    @Query("SELECT * FROM movies_tv_shows WHERE type = $TYPE_MOVIE AND is_favorite = 1 AND title LIKE :query")
+    @Query("SELECT * FROM movies_tv_shows WHERE type = $TYPE_MOVIE AND is_favorite = 1 AND title LIKE '%'||:query||'%'")
     fun getFavoriteMoviesSearchResult(query: String): Flow<List<MovieTvEntity>>
 
-    @Query("SELECT * FROM movies_tv_shows WHERE type = $TYPE_TV AND is_favorite = 1 AND title LIKE :query")
+    @Query("SELECT * FROM movies_tv_shows WHERE type = $TYPE_TV AND is_favorite = 1 AND title LIKE '%'||:query||'%'")
     fun getFavoriteTvShowsSearchResult(query: String): Flow<List<MovieTvEntity>>
 }

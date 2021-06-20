@@ -49,6 +49,14 @@ abstract class HomeBaseFragment: Fragment(), GridRvAdapter.OnItemClickCallback, 
         requestData()
     }
 
+    override fun onResume() {
+        super.onResume()
+        searchView.setQuery("", false)
+        if(!searchView.isIconified){
+            searchView.onActionViewCollapsed()
+        }
+    }
+
     private fun setupView(){
         rvAdapter.setOnItemClickCallback(this)
         with(binding?.rvList){
@@ -58,12 +66,7 @@ abstract class HomeBaseFragment: Fragment(), GridRvAdapter.OnItemClickCallback, 
             this?.adapter = rvAdapter
         }
 
-        if(!searchView.isIconified){
-            searchView.setOnQueryTextListener(this)
-            searchView.onActionViewCollapsed()
-        }
-
-        searchView.setQuery("", false)
+        searchView.setOnQueryTextListener(this)
 
         clearSearchResultButton.setOnClickListener {
             if(searchView.query.isEmpty()) {
@@ -109,17 +112,17 @@ abstract class HomeBaseFragment: Fragment(), GridRvAdapter.OnItemClickCallback, 
         rvAdapter.setList(data)
     }
 
-    override fun onItemClicked(data: MovieTv) {
-        moveToDetail(data)
+    override fun onItemClicked(id: Long) {
+        moveToDetail(id)
     }
 
     override fun onQueryTextSubmit(query: String?): Boolean {
-        search(query)
+        query?.run { if(this.isNotBlank()) search(this) else requestData()}
         return true
     }
 
     override fun onQueryTextChange(newText: String?): Boolean {
-        search(newText)
+        newText?.run { if(this.isNotBlank()) search(this) else requestData()}
         return true
     }
 
@@ -131,6 +134,6 @@ abstract class HomeBaseFragment: Fragment(), GridRvAdapter.OnItemClickCallback, 
 
     abstract fun observeViewModel()
     abstract fun requestData()
-    abstract fun moveToDetail(data: MovieTv)
+    abstract fun moveToDetail(id: Long)
     abstract fun search(query: String?)
 }

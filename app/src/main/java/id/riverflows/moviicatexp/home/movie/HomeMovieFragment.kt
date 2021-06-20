@@ -3,9 +3,10 @@ package id.riverflows.moviicatexp.home.movie
 import android.content.Intent
 import androidx.lifecycle.lifecycleScope
 import id.riverflows.core.data.Resource
-import id.riverflows.core.domain.model.MovieTv
 import id.riverflows.core.utils.State
-import id.riverflows.core.utils.UtilConstants
+import id.riverflows.core.utils.UtilConstants.EXTRA_ID
+import id.riverflows.core.utils.UtilConstants.EXTRA_TYPE
+import id.riverflows.core.utils.UtilConstants.TYPE_MOVIE
 import id.riverflows.moviicatexp.detail.DetailActivity
 import id.riverflows.moviicatexp.home.HomeBaseFragment
 import id.riverflows.moviicatexp.utils.Utils
@@ -41,7 +42,7 @@ class HomeMovieFragment: HomeBaseFragment() {
                 is Resource.Error -> {
                     setState(State.ERROR)
                     view?.run {
-                        Utils.showIndefiniteSnackBar(this, it.message.toString(), )
+                        Utils.showIndefiniteSnackBar(this, it.message.toString())
                     }
                 }
             }
@@ -83,10 +84,11 @@ class HomeMovieFragment: HomeBaseFragment() {
         }
     }
 
-    override fun moveToDetail(data: MovieTv) {
+    override fun moveToDetail(id: Long) {
         startActivity(
             Intent(context, DetailActivity::class.java).apply {
-                putExtra(UtilConstants.EXTRA_MOVIE_TV_DATA, data)
+                putExtra(EXTRA_ID, id)
+                putExtra(EXTRA_TYPE, TYPE_MOVIE)
             }
         )
     }

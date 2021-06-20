@@ -8,7 +8,10 @@ import com.bumptech.glide.request.RequestOptions
 import id.riverflows.core.data.Resource
 import id.riverflows.core.domain.model.MovieTv
 import id.riverflows.core.utils.AppConfig.POSTER_URL_ORIGINAL
-import id.riverflows.core.utils.UtilConstants.EXTRA_MOVIE_TV_DATA
+import id.riverflows.core.utils.State
+import id.riverflows.core.utils.State.*
+import id.riverflows.core.utils.UtilConstants.EXTRA_ID
+import id.riverflows.core.utils.UtilConstants.EXTRA_TYPE
 import id.riverflows.core.utils.UtilConstants.TYPE_MOVIE
 import id.riverflows.core.utils.UtilConstants.TYPE_TV
 import id.riverflows.moviicatexp.R
@@ -20,10 +23,12 @@ import timber.log.Timber
 class DetailActivity : AppCompatActivity() {
     private lateinit var binding: ActivityDetailBinding
     private val viewModel: DetailViewModel by viewModel()
-    private var data: MovieTv? = null
+    val id by lazy { intent.getLongExtra(EXTRA_ID, 0L) }
+    val type by lazy { intent.getIntExtra(EXTRA_TYPE, 0) }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setupInitialView()
+        observeViewModel()
         requestData()
     }
 
@@ -31,55 +36,47 @@ class DetailActivity : AppCompatActivity() {
         binding = ActivityDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
         setFabState(false)
-        binding.fabFavorite.setOnClickListener {
-            data?.run {
-                this.isFavorite = !this.isFavorite
-                viewModel.updateData(this)
-                setFabState(this.isFavorite)
-                val message = if(this.isFavorite){
-                    getString(R.string.message_added_to_favorites)
-                }else{
-                    getString(R.string.message_removed_from_favorites)
-                }
-                Utils.showIndefiniteSnackBar(binding.root, message)
-            }
-        }
     }
 
     private fun requestData(){
-        data = intent.getParcelableExtra(EXTRA_MOVIE_TV_DATA)
-        observeViewModel()
+        if(type == TYPE_MOVIE){
+            viewModel.getDetailMovie(id)
+        }else{
+            viewModel.getDetailTv(id)
+        }
     }
 
     private fun observeViewModel(){
-        data?.run {
-            if(type == TYPE_MOVIE){
-                viewModel.getDetailMovie(id).observe(this@DetailActivity){
-                    processResponse(it)
-                }
-            }else{
-                viewModel.getDetailTv(id).observe(this@DetailActivity){
-                    processResponse(it)
-                }
-            }
+        viewModel.data.observe(this@DetailActivity){
+            processResponse(it)
         }
     }
 
     private fun processResponse(response: Resource<MovieTv>){
         when(response){
             is Resource.Loading ->{
-                setLoadingState(true)
+                setState(LOADING)
             }
             is Resource.Success -> {
-                setLoadingState(false)
+                setState(SUCCESS)
                 response.data?.run {
                     bindData(this)
                     Timber.d("Bind Data")
+                    binding.fabFavorite.setOnClickListener {
+                        this.isFavorite = !this.isFavorite
+                        viewModel.updateData(this)
+                        setFabState(this.isFavorite)
+                        val message = if(this.isFavorite){
+                            getString(R.string.message_added_to_favorites)
+                        }else{
+                            getString(R.string.message_removed_from_favorites)
+                        }
+                        Utils.showIndefiniteSnackBar(binding.root, message)
+                    }
                 }
-                Timber.d(response.data.toString())
             }
             is Resource.Error -> {
-                setLoadingState(false)
+                setState(ERROR)
                 response.message?.run {
                     Utils.showIndefiniteSnackBar(binding.root, this)
                 }
@@ -110,19 +107,27 @@ class DetailActivity : AppCompatActivity() {
                 .into(ivPoster)
             setFabState(data.isFavorite)
         }
-        this.data = data
     }
 
-    private fun setLoadingState(isLoading: Boolean){
+    private fun setState(state: State){
         with(binding){
-            if(isLoading){
-                viewContainer.visibility = View.INVISIBLE
-                shimmerContainer.visibility = View.VISIBLE
-                shimmerContainer.startShimmer()
-            }else{
-                viewContainer.visibility = View.VISIBLE
-                shimmerContainer.visibility = View.INVISIBLE
-                shimmerContainer.stopShimmer()
+            when(state){
+                LOADING -> {
+                    viewContainer.visibility = View.GONE
+                    shimmerContainer.visibility = View.VISIBLE
+                    shimmerContainer.startShimmer()
+                }
+                SUCCESS -> {
+                    viewContainer.visibility = View.VISIBLE
+                    shimmerContainer.visibility = View.GONE
+                    shimmerContainer.stopShimmer()
+                }
+                ERROR -> {
+                    viewContainer.visibility = View.GONE
+                    shimmerContainer.visibility = View.GONE
+                    shimmerContainer.stopShimmer()
+                }
+                else -> return
             }
         }
     }

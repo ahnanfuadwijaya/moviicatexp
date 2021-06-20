@@ -12,8 +12,8 @@ interface IMovieTvRepository {
     suspend fun updateData(data: MovieTv)
     fun getFavoriteMovies(): Flow<List<MovieTv>>
     fun getFavoriteTvShows(): Flow<List<MovieTv>>
-    fun searchMovies(query: String, page: Long): Flow<Resource<List<MovieTv>>>
-    fun searchTvShows(query: String, page: Long): Flow<Resource<List<MovieTv>>>
+    suspend fun searchMovies(query: String, page: Long): Flow<Resource<List<MovieTv>>>
+    suspend fun searchTvShows(query: String, page: Long): Flow<Resource<List<MovieTv>>>
     fun searchFavoriteMovies(query: String): Flow<List<MovieTv>>
     fun searchFavoriteTvShows(query: String): Flow<List<MovieTv>>
 }

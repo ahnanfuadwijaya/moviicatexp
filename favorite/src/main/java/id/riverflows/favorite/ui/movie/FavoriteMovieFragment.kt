@@ -1,8 +1,11 @@
 package id.riverflows.favorite.ui.movie
 
+import android.content.Intent
 import androidx.lifecycle.lifecycleScope
 import id.riverflows.core.utils.State
+import id.riverflows.core.utils.UtilConstants
 import id.riverflows.favorite.ui.FavoriteFragment
+import id.riverflows.moviicatexp.detail.DetailActivity
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.launch
@@ -35,7 +38,6 @@ class FavoriteMovieFragment: FavoriteFragment() {
 
     override fun requestData() {
         Timber.d("Request Data")
-        setState(State.LOADING)
         viewModel.getFavoriteMovies()
     }
 
@@ -43,5 +45,14 @@ class FavoriteMovieFragment: FavoriteFragment() {
         lifecycleScope.launch {
             viewModel.moviesQueryChannel.send(query.toString())
         }
+    }
+
+    override fun moveToDetail(id: Long) {
+        startActivity(
+            Intent(context, DetailActivity::class.java).apply {
+                putExtra(UtilConstants.EXTRA_TYPE, UtilConstants.TYPE_MOVIE)
+                putExtra(UtilConstants.EXTRA_ID, id)
+            }
+        )
     }
 }

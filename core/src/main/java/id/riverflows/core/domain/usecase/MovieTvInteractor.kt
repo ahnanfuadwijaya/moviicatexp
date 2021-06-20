@@ -23,9 +23,9 @@ class MovieTvInteractor(
 
     override fun getFavoriteTvShows(): Flow<List<MovieTv>> = repository.getFavoriteTvShows()
 
-    override fun searchMovies(query: String, page: Long): Flow<Resource<List<MovieTv>>> = repository.searchMovies(query, page)
+    override suspend fun searchMovies(query: String, page: Long): Flow<Resource<List<MovieTv>>> = repository.searchMovies(query, page)
 
-    override fun searchTvShows(query: String, page: Long): Flow<Resource<List<MovieTv>>> = repository.searchTvShows(query, page)
+    override suspend fun searchTvShows(query: String, page: Long): Flow<Resource<List<MovieTv>>> = repository.searchTvShows(query, page)
 
     override fun searchFavoriteMovies(query: String): Flow<List<MovieTv>> = repository.searchFavoriteMovies(query)
 

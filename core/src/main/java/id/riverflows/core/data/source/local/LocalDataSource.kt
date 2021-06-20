@@ -24,10 +24,6 @@ class LocalDataSource constructor(
 
     fun getFavoriteTvShows(): Flow<List<MovieTvEntity>> = movieTvDao.getFavoriteTvShows()
 
-    fun getMoviesSearchResult(query: String): Flow<List<MovieTvEntity>> = movieTvDao.getMoviesSearchResult(query)
-
-    fun getTvShowsSearchResult(query: String): Flow<List<MovieTvEntity>> = movieTvDao.getTvShowsSearchResult(query)
-
     fun getFavoriteMoviesSearchResult(query: String) = movieTvDao.getFavoriteMoviesSearchResult(query)
 
     fun getFavoriteTvShowsSearchResult(query: String) = movieTvDao.getFavoriteTvShowsSearchResult(query)

@@ -121,4 +121,38 @@ object DataMapper {
             input.isFavorite
         )
     }
+
+    fun mapMoviesResponseToDomains(input: List<MovieResponse.Item>): List<MovieTv>{
+        return input.map {
+            MovieTv(
+                it.id,
+                it.title,
+                it.voteAverage,
+                it.releaseDate,
+                it.posterPath,
+                null,
+                null,
+                null,
+                null,
+                TYPE_MOVIE,
+            )
+        }
+    }
+
+    fun mapTvShowsResponseToDomains(input: List<TvResponse.Item>): List<MovieTv>{
+        return input.map {
+            MovieTv(
+                it.id,
+                it.name,
+                it.voteAverage,
+                it.firstAirDate,
+                it.posterPath,
+                null,
+                null,
+                null,
+                null,
+                TYPE_TV,
+            )
+        }
+    }
 }

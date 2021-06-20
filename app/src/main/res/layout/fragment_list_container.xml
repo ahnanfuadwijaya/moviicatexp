@@ -5,6 +5,25 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools">
+
+    <include
+        android:id="@+id/view_no_data"
+        android:visibility="gone"
+        layout="@layout/screen_no_data"/>
+
+    <com.facebook.shimmer.ShimmerFrameLayout
+        android:id="@+id/view_loading_shimmer"
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+        <include
+            layout="@layout/shimmer_container_grid" />
+    </com.facebook.shimmer.ShimmerFrameLayout>
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_list"
         android:layout_width="match_parent"
@@ -13,23 +32,4 @@
         android:layout_marginTop="@dimen/space_normal"
         android:layout_marginEnd="@dimen/space_normal"
         tools:listitem="@layout/item_movie_tv_grid" />
-
-    <include
-        android:id="@+id/view_no_data"
-        tools:visibility="gone"
-        layout="@layout/screen_no_data"/>
-
-    <com.facebook.shimmer.ShimmerFrameLayout
-        android:id="@+id/view_loading_shimmer"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <include
-            layout="@layout/shimmer_container_grid"
-            tools:visibility="gone" />
-    </com.facebook.shimmer.ShimmerFrameLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

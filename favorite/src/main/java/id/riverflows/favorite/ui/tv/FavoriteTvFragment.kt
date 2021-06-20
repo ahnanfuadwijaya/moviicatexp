@@ -1,8 +1,12 @@
 package id.riverflows.favorite.ui.tv
 
+import android.content.Intent
 import androidx.lifecycle.lifecycleScope
-import id.riverflows.core.utils.State.*
+import id.riverflows.core.utils.State.NO_DATA
+import id.riverflows.core.utils.State.SUCCESS
+import id.riverflows.core.utils.UtilConstants
 import id.riverflows.favorite.ui.FavoriteFragment
+import id.riverflows.moviicatexp.detail.DetailActivity
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.launch
@@ -34,7 +38,6 @@ class FavoriteTvFragment: FavoriteFragment() {
 
     override fun requestData() {
         Timber.d("Request Data")
-        setState(LOADING)
         viewModel.getFavoriteTvShows()
     }
 
@@ -42,5 +45,14 @@ class FavoriteTvFragment: FavoriteFragment() {
         lifecycleScope.launch {
             viewModel.tvShowsQueryChannel.send(query.toString())
         }
+    }
+
+    override fun moveToDetail(id: Long) {
+        startActivity(
+            Intent(context, DetailActivity::class.java).apply {
+                putExtra(UtilConstants.EXTRA_TYPE, UtilConstants.TYPE_TV)
+                putExtra(UtilConstants.EXTRA_ID, id)
+            }
+        )
     }
 }

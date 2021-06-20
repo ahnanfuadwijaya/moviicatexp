@@ -3,13 +3,13 @@ package id.riverflows.moviicatexp.home.tv
 import android.content.Intent
 import androidx.lifecycle.lifecycleScope
 import id.riverflows.core.data.Resource
-import id.riverflows.core.domain.model.MovieTv
 import id.riverflows.core.utils.State
-import id.riverflows.core.utils.UtilConstants
+import id.riverflows.core.utils.UtilConstants.EXTRA_ID
+import id.riverflows.core.utils.UtilConstants.EXTRA_TYPE
+import id.riverflows.core.utils.UtilConstants.TYPE_TV
 import id.riverflows.moviicatexp.detail.DetailActivity
 import id.riverflows.moviicatexp.home.HomeBaseFragment
 import id.riverflows.moviicatexp.utils.Utils
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.launch
@@ -72,17 +72,18 @@ class HomeTvFragment: HomeBaseFragment() {
         }
     }
 
-    override fun moveToDetail(data: MovieTv) {
+    override fun moveToDetail(id: Long) {
         startActivity(
             Intent(context, DetailActivity::class.java).apply {
-                putExtra(UtilConstants.EXTRA_MOVIE_TV_DATA, data)
+                putExtra(EXTRA_ID, id)
+                putExtra(EXTRA_TYPE, TYPE_TV)
             }
         )
     }
 
     override fun search(query: String?) {
-        lifecycleScope.launch(Dispatchers.IO) {
-            query?.run { viewModel.queryChannel.send(this) }
+        lifecycleScope.launch {
+            viewModel.queryChannel.send(query.toString())
         }
     }
 }

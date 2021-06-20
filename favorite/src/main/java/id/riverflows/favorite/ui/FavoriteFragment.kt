@@ -1,6 +1,5 @@
 package id.riverflows.favorite.ui
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -10,10 +9,9 @@ import androidx.recyclerview.widget.GridLayoutManager
 import id.riverflows.core.domain.model.MovieTv
 import id.riverflows.core.utils.AppConfig
 import id.riverflows.core.utils.State
-import id.riverflows.core.utils.State.*
-import id.riverflows.core.utils.UtilConstants
+import id.riverflows.core.utils.State.NO_DATA
+import id.riverflows.core.utils.State.SUCCESS
 import id.riverflows.moviicatexp.databinding.FragmentListContainerBinding
-import id.riverflows.moviicatexp.detail.DetailActivity
 import id.riverflows.moviicatexp.ui.GridRvAdapter
 import id.riverflows.moviicatexp.ui.SpaceItemDecoration
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -54,12 +52,6 @@ abstract class FavoriteFragment: Fragment(), GridRvAdapter.OnItemClickCallback {
                 binding?.viewLoadingShimmer?.visibility = View.GONE
                 binding?.viewNoData?.root?.visibility = View.GONE
             }
-            LOADING -> {
-                binding?.rvList?.visibility = View.GONE
-                binding?.viewLoadingShimmer?.startShimmer()
-                binding?.viewLoadingShimmer?.visibility = View.VISIBLE
-                binding?.viewNoData?.root?.visibility = View.GONE
-            }
             NO_DATA -> {
                 binding?.rvList?.visibility = View.GONE
                 binding?.viewLoadingShimmer?.stopShimmer()
@@ -74,12 +66,8 @@ abstract class FavoriteFragment: Fragment(), GridRvAdapter.OnItemClickCallback {
         rvAdapter.setList(list)
     }
 
-    override fun onItemClicked(data: MovieTv) {
-        startActivity(
-            Intent(context, DetailActivity::class.java).apply {
-                putExtra(UtilConstants.EXTRA_MOVIE_TV_DATA, data)
-            }
-        )
+    override fun onItemClicked(id: Long) {
+        moveToDetail(id)
     }
 
     private fun setupView(){
@@ -101,4 +89,5 @@ abstract class FavoriteFragment: Fragment(), GridRvAdapter.OnItemClickCallback {
     abstract fun observeViewModel()
     abstract fun requestData()
     abstract fun search(query: String?)
+    abstract fun moveToDetail(id: Long)
 }

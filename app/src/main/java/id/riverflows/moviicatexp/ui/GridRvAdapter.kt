@@ -52,11 +52,11 @@ class GridRvAdapter: RecyclerView.Adapter<MovieGridViewHolder>() {
                     )
                     .into(ivPoster)
             }
-            itemView.setOnClickListener { onItemClickCallback.onItemClicked(data) }
+            itemView.setOnClickListener { onItemClickCallback.onItemClicked(data.id) }
         }
     }
 
     interface OnItemClickCallback{
-        fun onItemClicked(data: MovieTv)
+        fun onItemClicked(id: Long)
     }
 }

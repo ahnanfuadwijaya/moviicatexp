@@ -130,14 +130,14 @@ class FavoriteContainerFragment : Fragment(), SearchView.OnQueryTextListener {
 
     override fun onQueryTextSubmit(query: String?): Boolean {
         query?.run {
-            if(this.isNotBlank()) search(this)
+            if(this.isNotBlank()) search(this) else requestData()
         }
         return true
     }
 
     override fun onQueryTextChange(newText: String?): Boolean {
         newText?.run {
-            if(this.isNotBlank()) search(this)
+            if(this.isNotBlank()) search(this) else requestData()
         }
         return true
     }

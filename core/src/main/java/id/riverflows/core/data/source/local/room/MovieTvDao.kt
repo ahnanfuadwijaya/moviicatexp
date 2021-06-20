@@ -26,18 +26,11 @@ interface MovieTvDao {
     @Update
     suspend fun updateData(data: MovieTvEntity)
 
-
     @Query("SELECT * FROM movies_tv_shows WHERE type = $TYPE_MOVIE AND is_favorite = 1")
     fun getFavoriteMovies(): Flow<List<MovieTvEntity>>
 
     @Query("SELECT * FROM movies_tv_shows WHERE type = $TYPE_TV AND is_favorite = 1")
     fun getFavoriteTvShows(): Flow<List<MovieTvEntity>>
-
-    @Query("SELECT * FROM movies_tv_shows WHERE id = :id AND type = $TYPE_MOVIE AND is_favorite = 1")
-    fun getFavoriteMovie(id: Long): Flow<MovieTvEntity?>
-
-    @Query("SELECT * FROM movies_tv_shows WHERE id = :id AND type = $TYPE_TV AND is_favorite = 1")
-    fun getFavoriteTv(id: Long): Flow<MovieTvEntity?>
 
     @Query("SELECT * FROM movies_tv_shows WHERE type = $TYPE_MOVIE AND title LIKE '%'||:query||'%'")
     fun getMoviesSearchResult(query: String): Flow<List<MovieTvEntity>>

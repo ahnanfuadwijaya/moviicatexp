@@ -21,7 +21,7 @@ class FavoriteContainerFragment : Fragment() {
     private var _binding: FragmentFavoriteContainerBinding? = null
     private val binding
         get() = _binding
-    private lateinit var pagerAdapter: FavoriteSectionsPagerAdapter
+    private var pagerMediator: TabLayoutMediator? = null
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -42,17 +42,21 @@ class FavoriteContainerFragment : Fragment() {
 
     private fun setupUI(){
         binding?.run {
-            pagerAdapter = FavoriteSectionsPagerAdapter(parentFragmentManager, lifecycle)
+            val pagerAdapter = FavoriteSectionsPagerAdapter(childFragmentManager, viewLifecycleOwner.lifecycle)
             viewPager.adapter = pagerAdapter
-            TabLayoutMediator(tabs, viewPager) { tab, position ->
+            pagerMediator = TabLayoutMediator(tabs, viewPager) { tab, position ->
                 val titles = resources.getStringArray(R.array.movie_tv_tab_titles)
                 tab.text = titles[position]
-            }.attach()
+            }
+            pagerMediator?.attach()
         }
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
+    override fun onDestroyView() {
+        super.onDestroyView()
+        pagerMediator?.detach()
+        pagerMediator = null
+        binding?.viewPager?.adapter = null
         _binding = null
     }
 }

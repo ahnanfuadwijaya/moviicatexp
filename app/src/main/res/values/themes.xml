@@ -153,7 +153,7 @@
     </style>
 
     <style name="StateMessage">
-        <item name="android:textSize">34sp</item>
+        <item name="android:textSize">24sp</item>
         <item name="android:textColor">@color/black</item>
     </style>
 

@@ -34,7 +34,7 @@ import timber.log.Timber
 @FlowPreview
 @ExperimentalCoroutinesApi
 class TvFragment : Fragment(), GridRvAdapter.OnItemClickCallback {
-    private val viewModel: HomeSharedViewModel by viewModel()
+    internal val viewModel: HomeSharedViewModel by viewModel()
     private val rvAdapter = GridRvAdapter()
     private var _binding: FragmentListContainerBinding? = null
     private val binding
@@ -142,10 +142,10 @@ class TvFragment : Fragment(), GridRvAdapter.OnItemClickCallback {
         }
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
+    override fun onDestroyView() {
         binding?.rvList?.adapter = null
         _binding = null
+        super.onDestroyView()
     }
 
     override fun onItemClicked(data: MovieTv) {

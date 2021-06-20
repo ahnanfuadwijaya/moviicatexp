@@ -34,9 +34,10 @@ import timber.log.Timber
 @FlowPreview
 @ExperimentalCoroutinesApi
 class MovieFragment : Fragment(), GridRvAdapter.OnItemClickCallback {
-    private val viewModel: HomeSharedViewModel by viewModel()
+    internal val viewModel: HomeSharedViewModel by viewModel()
     private val rvAdapter = GridRvAdapter()
     private var _binding: FragmentListContainerBinding? = null
+    private var isSearching = false
     private val binding
         get() = _binding
 
@@ -98,7 +99,7 @@ class MovieFragment : Fragment(), GridRvAdapter.OnItemClickCallback {
         viewModel.movies.observe(viewLifecycleOwner){
             when(it){
                 is Resource.Loading ->{
-                    setState(LOADING)
+                    if(!isSearching) setState(LOADING)
                 }
                 is Resource.Success -> {
                     Timber.d(it.data.toString())
@@ -146,10 +147,10 @@ class MovieFragment : Fragment(), GridRvAdapter.OnItemClickCallback {
         }
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
+    override fun onDestroyView() {
         binding?.rvList?.adapter = null
         _binding = null
+        super.onDestroyView()
     }
 
     override fun onItemClicked(data: MovieTv) {
@@ -169,18 +170,21 @@ class MovieFragment : Fragment(), GridRvAdapter.OnItemClickCallback {
                 binding?.viewNoData?.root?.visibility = View.GONE
             }
             SUCCESS -> {
+                isSearching = false
                 binding?.rvList?.visibility = View.VISIBLE
                 binding?.viewLoadingShimmer?.stopShimmer()
                 binding?.viewLoadingShimmer?.visibility = View.GONE
                 binding?.viewNoData?.root?.visibility = View.GONE
             }
             NO_DATA -> {
+                isSearching = false
                 binding?.rvList?.visibility = View.GONE
                 binding?.viewLoadingShimmer?.stopShimmer()
                 binding?.viewLoadingShimmer?.visibility = View.GONE
                 binding?.viewNoData?.root?.visibility = View.VISIBLE
             }
             ERROR -> {
+                isSearching = false
                 binding?.rvList?.visibility = View.GONE
                 binding?.viewLoadingShimmer?.stopShimmer()
                 binding?.viewLoadingShimmer?.visibility = View.GONE

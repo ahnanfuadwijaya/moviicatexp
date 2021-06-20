@@ -13,6 +13,7 @@
         android:layout_marginTop="@dimen/space_normal"
         android:layout_marginEnd="@dimen/space_normal"
         tools:listitem="@layout/item_movie_tv_grid" />
+
     <include
         android:id="@+id/view_no_data"
         tools:visibility="gone"

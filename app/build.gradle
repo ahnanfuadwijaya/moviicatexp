@@ -58,6 +58,7 @@ dependencies {
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$androidx_lifecycle_version"
     implementation "androidx.lifecycle:lifecycle-livedata-ktx:$androidx_lifecycle_version"
     implementation "com.google.android.play:core:$play_core_version"
+    implementation "com.airbnb.android:lottie:$lottie_version"
     testImplementation "junit:junit:$test_junit4_version"
     androidTestImplementation "androidx.test.ext:junit:$android_test_junit_version"
     androidTestImplementation "androidx.test.espresso:espresso-core:$android_test_espresso_core_version"

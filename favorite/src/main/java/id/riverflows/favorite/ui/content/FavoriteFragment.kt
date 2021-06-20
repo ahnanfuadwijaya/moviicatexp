@@ -12,6 +12,8 @@ import androidx.recyclerview.widget.GridLayoutManager
 import id.riverflows.core.domain.model.MovieTv
 import id.riverflows.core.utils.AppConfig
 import id.riverflows.core.utils.State
+import id.riverflows.core.utils.State.NO_DATA
+import id.riverflows.core.utils.State.SUCCESS
 import id.riverflows.core.utils.UtilConstants
 import id.riverflows.favorite.ui.FavoriteViewModel
 import id.riverflows.moviicatexp.R
@@ -49,13 +51,13 @@ abstract class FavoriteFragment: Fragment(), GridRvAdapter.OnItemClickCallback {
     }
 
     protected fun setState(state: State){
-        if(state== State.SUCCESS){
+        if(state== SUCCESS){
             binding?.rvList?.visibility = View.VISIBLE
             binding?.viewLoadingShimmer?.stopShimmer()
             binding?.viewLoadingShimmer?.visibility = View.GONE
             binding?.viewNoData?.root?.visibility = View.GONE
         }
-        else if(state == State.NO_DATA){
+        else if(state == NO_DATA){
             binding?.rvList?.visibility = View.GONE
             binding?.viewLoadingShimmer?.stopShimmer()
             binding?.viewLoadingShimmer?.visibility = View.GONE
@@ -106,10 +108,10 @@ abstract class FavoriteFragment: Fragment(), GridRvAdapter.OnItemClickCallback {
         }
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
+    override fun onDestroyView() {
         binding?.rvList?.adapter = null
         _binding = null
+        super.onDestroyView()
     }
 
     abstract fun observeViewModel()

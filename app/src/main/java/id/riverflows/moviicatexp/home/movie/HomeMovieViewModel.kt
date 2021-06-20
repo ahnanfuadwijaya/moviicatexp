@@ -1,4 +1,4 @@
-package id.riverflows.moviicatexp.home
+package id.riverflows.moviicatexp.home.movie
 
 import androidx.lifecycle.*
 import id.riverflows.core.data.Resource
@@ -13,13 +13,11 @@ import kotlinx.coroutines.launch
 
 @FlowPreview
 @ExperimentalCoroutinesApi
-class HomeSharedViewModel(
+class HomeMovieViewModel(
     private val movieTvUseCase: MovieTvUseCase
 ): ViewModel() {
     private val _movies = MutableLiveData<Resource<List<MovieTv>>>()
     val movies: LiveData<Resource<List<MovieTv>>> = _movies
-    private val _tvShows = MutableLiveData<Resource<List<MovieTv>>>()
-    val tvShows: LiveData<Resource<List<MovieTv>>> = _tvShows
     val queryChannel = BroadcastChannel<String>(Channel.CONFLATED)
 
     val searchMoviesResult = queryChannel.asFlow()
@@ -33,26 +31,9 @@ class HomeSharedViewModel(
         }
         .asLiveData()
 
-    val searchTvShowsResult = queryChannel.asFlow()
-        .debounce(300)
-        .distinctUntilChanged()
-        .filter {
-            it.trim().isNotEmpty()
-        }
-        .flatMapLatest {
-            movieTvUseCase.searchTvShows(it, 1L)
-        }
-        .asLiveData()
-
     fun getMovies() = viewModelScope.launch {
         movieTvUseCase.getMovies().collect {
             _movies.postValue(it)
-        }
-    }
-
-    fun getTvShows() = viewModelScope.launch {
-        movieTvUseCase.getTvShows().collect {
-            _tvShows.postValue(it)
         }
     }
 }

@@ -1,6 +1,7 @@
 package id.riverflows.moviicatexp.home.tv
 
 import android.content.Intent
+import androidx.lifecycle.lifecycleScope
 import id.riverflows.core.data.Resource
 import id.riverflows.core.domain.model.MovieTv
 import id.riverflows.core.utils.State
@@ -8,14 +9,17 @@ import id.riverflows.core.utils.UtilConstants
 import id.riverflows.moviicatexp.detail.DetailActivity
 import id.riverflows.moviicatexp.home.HomeBaseFragment
 import id.riverflows.moviicatexp.utils.Utils
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
+import kotlinx.coroutines.launch
+import org.koin.androidx.viewmodel.ext.android.viewModel
 import timber.log.Timber
 
 @FlowPreview
 @ExperimentalCoroutinesApi
 class HomeTvFragment: HomeBaseFragment() {
-
+    private val viewModel: HomeTvViewModel by viewModel()
     override fun requestData() {
         viewModel.getTvShows()
     }
@@ -74,5 +78,11 @@ class HomeTvFragment: HomeBaseFragment() {
                 putExtra(UtilConstants.EXTRA_MOVIE_TV_DATA, data)
             }
         )
+    }
+
+    override fun search(query: String?) {
+        lifecycleScope.launch(Dispatchers.IO) {
+            query?.run { viewModel.queryChannel.send(this) }
+        }
     }
 }

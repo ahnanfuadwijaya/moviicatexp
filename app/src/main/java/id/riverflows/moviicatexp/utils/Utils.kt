@@ -6,9 +6,11 @@ import id.riverflows.moviicatexp.R
 
 object Utils {
 
-    fun showIndefiniteSnackBar(view: View, message: String){
+    fun showIndefiniteSnackBar(view: View, message: String, anchor: View? = null){
         val context = view.context
-        val snackBar = Snackbar.make(view, message, Snackbar.LENGTH_INDEFINITE)
+        val snackBar = Snackbar.make(view, message, Snackbar.LENGTH_INDEFINITE).apply {
+            anchorView = anchor
+        }
         snackBar.setAction(context.getString(R.string.action_close)){
             snackBar.dismiss()
         }

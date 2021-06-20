@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
 import id.riverflows.core.domain.model.MovieTv
 import id.riverflows.core.utils.AppConfig
@@ -16,17 +15,14 @@ import id.riverflows.moviicatexp.R
 import id.riverflows.moviicatexp.databinding.FragmentListContainerBinding
 import id.riverflows.moviicatexp.ui.GridRvAdapter
 import id.riverflows.moviicatexp.ui.SpaceItemDecoration
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
-import kotlinx.coroutines.launch
-import org.koin.androidx.viewmodel.ext.android.viewModel
 import timber.log.Timber
 
 @ExperimentalCoroutinesApi
 @FlowPreview
 abstract class HomeBaseFragment: Fragment(), GridRvAdapter.OnItemClickCallback, SearchView.OnQueryTextListener {
-    protected val viewModel: HomeSharedViewModel by viewModel()
+
     private val rvAdapter = GridRvAdapter()
     private val searchView: SearchView by lazy {
         (activity as HomeActivity).findViewById(R.id.search_view)
@@ -62,7 +58,12 @@ abstract class HomeBaseFragment: Fragment(), GridRvAdapter.OnItemClickCallback, 
             this?.adapter = rvAdapter
         }
 
-        searchView.setOnQueryTextListener(this)
+        if(!searchView.isIconified){
+            searchView.setOnQueryTextListener(this)
+            searchView.onActionViewCollapsed()
+        }
+
+        searchView.setQuery("", false)
 
         clearSearchResultButton.setOnClickListener {
             if(searchView.query.isEmpty()) {
@@ -128,13 +129,8 @@ abstract class HomeBaseFragment: Fragment(), GridRvAdapter.OnItemClickCallback, 
         _binding = null
     }
 
-    private fun search(query: String?){
-        lifecycleScope.launch(Dispatchers.IO) {
-            query?.run { viewModel.queryChannel.send(this) }
-        }
-    }
-
     abstract fun observeViewModel()
     abstract fun requestData()
     abstract fun moveToDetail(data: MovieTv)
+    abstract fun search(query: String?)
 }

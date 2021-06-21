@@ -36,7 +36,7 @@ class MoviiCatRepository(
 
     override fun getDetailMovie(id: Long): Flow<Resource<MovieTv>> =
         object : NetworkBoundResource<MovieTv, MovieResponse.Detail>(){
-            override fun loadFromDB(): Flow<MovieTv> {
+            override fun loadFromDB(): Flow<MovieTv?> {
                 return localDataSource.getDetailMovie(id).map {
                     DataMapper.mapEntityToDomain(it)
                 }
@@ -52,7 +52,7 @@ class MoviiCatRepository(
             }
 
             override suspend fun saveCallResult(data: MovieResponse.Detail) {
-                localDataSource.updateData(DataMapper.mapMovieDetailResponseToEntity(data))
+                localDataSource.insertData(DataMapper.mapMovieDetailResponseToEntity(data))
             }
         }.asFlow()
 
@@ -77,7 +77,7 @@ class MoviiCatRepository(
 
     override fun getDetailTv(id: Long): Flow<Resource<MovieTv>> =
         object : NetworkBoundResource<MovieTv, TvResponse.Detail>(){
-            override fun loadFromDB(): Flow<MovieTv> {
+            override fun loadFromDB(): Flow<MovieTv?> {
                 return localDataSource.getDetailTv(id).map {
                     DataMapper.mapEntityToDomain(it)
                 }
@@ -93,12 +93,12 @@ class MoviiCatRepository(
             }
 
             override suspend fun saveCallResult(data: TvResponse.Detail) {
-                localDataSource.updateData(DataMapper.mapTvDetailResponseToEntity(data))
+                localDataSource.insertData(DataMapper.mapTvDetailResponseToEntity(data))
             }
         }.asFlow()
 
     override suspend fun updateData(data: MovieTv) {
-        localDataSource.updateData(DataMapper.mapDomainToEntity(data))
+        localDataSource.insertData(DataMapper.mapDomainToEntity(data))
     }
 
     override fun getFavoriteMovies(): Flow<List<MovieTv>> {

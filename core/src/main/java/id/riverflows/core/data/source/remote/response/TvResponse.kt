@@ -12,13 +12,13 @@ class TvResponse{
         @field:SerializedName("id")
         val id: Long,
         @field:SerializedName("name")
-        val name: String,
+        val name: String?,
         @field:SerializedName("vote_average")
-        val voteAverage: Float,
+        val voteAverage: Float?,
         @field:SerializedName("first_air_date")
-        val firstAirDate: String,
+        val firstAirDate: String?,
         @field:SerializedName("poster_path")
-        val posterPath: String
+        val posterPath: String?
     )
 
     data class Detail(
@@ -27,11 +27,11 @@ class TvResponse{
         @field:SerializedName("name")
         val name: String,
         @field:SerializedName("vote_average")
-        val voteAverage: Float,
+        val voteAverage: Float?,
         @field:SerializedName("first_air_date")
-        val firstAirDate: String,
+        val firstAirDate: String?,
         @field:SerializedName("poster_path")
-        val posterPath: String,
+        val posterPath: String?,
         @field:SerializedName("overview")
         val overview: String?,
         @field:SerializedName("popularity")

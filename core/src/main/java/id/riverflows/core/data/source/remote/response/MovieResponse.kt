@@ -12,13 +12,13 @@ class MovieResponse{
         @field:SerializedName("id")
         val id: Long,
         @field:SerializedName("title")
-        val title: String,
+        val title: String?,
         @field:SerializedName("vote_average")
-        val voteAverage: Float,
+        val voteAverage: Float?,
         @field:SerializedName("release_date")
-        val releaseDate: String,
+        val releaseDate: String?,
         @field:SerializedName("poster_path")
-        val posterPath: String
+        val posterPath: String?
     )
 
     data class Detail(
@@ -27,11 +27,11 @@ class MovieResponse{
         @field:SerializedName("title")
         val title: String,
         @field:SerializedName("vote_average")
-        val voteAverage: Float,
+        val voteAverage: Float?,
         @field:SerializedName("release_date")
-        val releaseDate: String,
+        val releaseDate: String?,
         @field:SerializedName("poster_path")
-        val posterPath: String,
+        val posterPath: String?,
         @field:SerializedName("overview")
         val overview: String?,
         @field:SerializedName("popularity")

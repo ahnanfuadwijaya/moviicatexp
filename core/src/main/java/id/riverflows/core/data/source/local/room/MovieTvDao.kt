@@ -1,6 +1,9 @@
 package id.riverflows.core.data.source.local.room
 
-import androidx.room.*
+import androidx.room.Dao
+import androidx.room.Insert
+import androidx.room.OnConflictStrategy
+import androidx.room.Query
 import id.riverflows.core.data.source.local.entity.MovieTvEntity
 import id.riverflows.core.utils.UtilConstants.TYPE_MOVIE
 import id.riverflows.core.utils.UtilConstants.TYPE_TV
@@ -12,19 +15,19 @@ interface MovieTvDao {
     fun getMovies(): Flow<List<MovieTvEntity>>
 
     @Query("SELECT * FROM movies_tv_shows WHERE type = $TYPE_MOVIE AND id = :id")
-    fun getDetailMovie(id: Long): Flow<MovieTvEntity>
+    fun getDetailMovie(id: Long): Flow<MovieTvEntity?>
 
     @Query("SELECT * FROM movies_tv_shows WHERE type = $TYPE_TV")
     fun getTvShows(): Flow<List<MovieTvEntity>>
 
     @Query("SELECT * FROM movies_tv_shows WHERE type = $TYPE_TV AND id = :id")
-    fun getDetailTv(id: Long): Flow<MovieTvEntity>
+    fun getDetailTv(id: Long): Flow<MovieTvEntity?>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertList(list: List<MovieTvEntity>)
 
-    @Update
-    suspend fun updateData(data: MovieTvEntity)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertData(data: MovieTvEntity)
 
     @Query("SELECT * FROM movies_tv_shows WHERE type = $TYPE_MOVIE AND is_favorite = 1")
     fun getFavoriteMovies(): Flow<List<MovieTvEntity>>

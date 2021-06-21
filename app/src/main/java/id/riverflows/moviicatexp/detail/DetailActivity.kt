@@ -23,8 +23,6 @@ import timber.log.Timber
 class DetailActivity : AppCompatActivity() {
     private lateinit var binding: ActivityDetailBinding
     private val viewModel: DetailViewModel by viewModel()
-    val id by lazy { intent.getLongExtra(EXTRA_ID, 0L) }
-    val type by lazy { intent.getIntExtra(EXTRA_TYPE, 0) }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setupInitialView()
@@ -39,11 +37,14 @@ class DetailActivity : AppCompatActivity() {
     }
 
     private fun requestData(){
+        val id = intent.getLongExtra(EXTRA_ID, 0L)
+        val type = intent.getIntExtra(EXTRA_TYPE, 0)
         if(type == TYPE_MOVIE){
             viewModel.getDetailMovie(id)
         }else{
             viewModel.getDetailTv(id)
         }
+        Timber.d("ID: $id, type: $type")
     }
 
     private fun observeViewModel(){

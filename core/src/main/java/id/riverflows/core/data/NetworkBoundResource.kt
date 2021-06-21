@@ -3,9 +3,9 @@ package id.riverflows.core.data
 import id.riverflows.core.data.source.remote.network.ApiResponse
 import kotlinx.coroutines.flow.*
 
+@Suppress("UNCHECKED_CAST")
 abstract class NetworkBoundResource<ResultType, RequestType> {
-
-    private var result: Flow<Resource<ResultType>> = flow {
+    private var result = flow {
         emit(Resource.Loading())
         val dbSource = loadFromDB().first()
         if (shouldFetch(dbSource)) {
@@ -26,11 +26,11 @@ abstract class NetworkBoundResource<ResultType, RequestType> {
         } else {
             emitAll(loadFromDB().map { Resource.Success(it) })
         }
-    }
+    } as Flow<Resource<ResultType>>
 
     protected open fun onFetchFailed() {}
 
-    protected abstract fun loadFromDB(): Flow<ResultType>
+    protected abstract fun loadFromDB(): Flow<ResultType?>
 
     protected abstract fun shouldFetch(data: ResultType?): Boolean
 

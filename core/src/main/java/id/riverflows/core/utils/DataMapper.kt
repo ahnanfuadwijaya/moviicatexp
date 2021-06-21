@@ -60,7 +60,8 @@ object DataMapper {
         }
     }
 
-    fun mapEntityToDomain(input: MovieTvEntity): MovieTv{
+    fun mapEntityToDomain(input: MovieTvEntity?): MovieTv?{
+        if(input == null) return null
         return MovieTv(
             input.id,
             input.title,

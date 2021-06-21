@@ -12,9 +12,9 @@ data class MovieTvEntity(
     @ColumnInfo(name = "id")
     val id: Long,
     @ColumnInfo(name = "title")
-    val title: String,
+    val title: String?,
     @ColumnInfo(name = "vote_average")
-    val voteAverage: Float,
+    val voteAverage: Float?,
     @ColumnInfo(name = "release_date")
     val releaseDate: String?,
     @ColumnInfo(name = "poster_path")

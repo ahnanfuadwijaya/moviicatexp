@@ -10,15 +10,15 @@ class LocalDataSource constructor(
 
     fun getMovies(): Flow<List<MovieTvEntity>> = movieTvDao.getMovies()
 
-    fun getDetailMovie(id: Long): Flow<MovieTvEntity> = movieTvDao.getDetailMovie(id)
+    fun getDetailMovie(id: Long): Flow<MovieTvEntity?> = movieTvDao.getDetailMovie(id)
 
     fun getTvShows(): Flow<List<MovieTvEntity>> = movieTvDao.getTvShows()
 
-    fun getDetailTv(id: Long): Flow<MovieTvEntity> = movieTvDao.getDetailTv(id)
+    fun getDetailTv(id: Long): Flow<MovieTvEntity?> = movieTvDao.getDetailTv(id)
 
     suspend fun insertList(list: List<MovieTvEntity>) = movieTvDao.insertList(list)
 
-    suspend fun updateData(data: MovieTvEntity) = movieTvDao.updateData(data)
+    suspend fun insertData(data: MovieTvEntity) = movieTvDao.insertData(data)
 
     fun getFavoriteMovies(): Flow<List<MovieTvEntity>> = movieTvDao.getFavoriteMovies()
 
